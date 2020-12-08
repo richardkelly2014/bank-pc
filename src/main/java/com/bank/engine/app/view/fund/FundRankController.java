@@ -10,18 +10,13 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.paint.Paint;
-import javafx.util.Callback;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +25,7 @@ import static com.bank.engine.app.util.UiComponentUtil.setupCellValueFactory;
 @Slf4j
 @Component
 @FXMLViewAndController(value = "template/fund/FundRankView.fxml", title = "基金排行")
-public class FundRankController extends AbstractFxView {
+public class FundRankController extends AbstractFxView implements InitializingBean {
 
     @Autowired
     private FundBusinessService fundBusinessService;
@@ -117,7 +112,12 @@ public class FundRankController extends AbstractFxView {
             }
             return true;
         });
+    }
 
+    /**
+     * 刷新
+     */
+    public void refresh() {
         DefaultThreadFactory.runLater(() -> search(1));
     }
 
@@ -133,7 +133,7 @@ public class FundRankController extends AbstractFxView {
         DefaultThreadFactory.runLater(() -> search(n));
     }
 
-    public void search(int pn) {
+    private void search(int pn) {
 
         this.spinnerInfo.setVisible(true);
         this.recordRankTable.setDisable(true);
@@ -155,7 +155,9 @@ public class FundRankController extends AbstractFxView {
         int no = pageModel.getPageNo();
         int page = pageModel.getTotalPage();
 
-        dummyData.setAll(pageModel.getList());
+        DefaultThreadFactory.sleep(1000);
+
+        dummyData.addAll(pageModel.getList());
 
         spinnerInfo.setVisible(false);
         recordRankTable.setDisable(false);
@@ -188,5 +190,10 @@ public class FundRankController extends AbstractFxView {
             };
             return cell;
         });
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        getView();
     }
 }
