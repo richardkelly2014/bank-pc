@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -60,6 +61,12 @@ public class FundRankController extends AbstractFxView implements InitializingBe
     private JFXTreeTableColumn<FundRankModel, String> fundTreeTableColumn3Year;
     @FXML
     private JFXTreeTableColumn<FundRankModel, String> columnOperation;
+
+    @FXML
+    private JFXTextField tf_fundCode, tf_fundName;
+    @FXML
+    private JFXButton btnSearch, btnRest;
+
     @FXML
     private JFXSpinner spinnerInfo;
 
@@ -112,6 +119,24 @@ public class FundRankController extends AbstractFxView implements InitializingBe
             }
             return true;
         });
+
+        this.btnSearch.setOnAction(action -> DefaultThreadFactory.runLater(() -> search(1)));
+        this.btnRest.setOnAction(action -> {
+            tf_fundCode.setText(null);
+            tf_fundName.setText(null);
+        });
+
+        this.tf_fundCode.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                DefaultThreadFactory.runLater(() -> search(1));
+            }
+        });
+        this.tf_fundName.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                DefaultThreadFactory.runLater(() -> search(1));
+            }
+        });
+
     }
 
     /**
@@ -140,6 +165,10 @@ public class FundRankController extends AbstractFxView implements InitializingBe
         this.dummyData.clear();
 
         int psize = pageSize.getValue();
+
+        String fundCode = tf_fundCode.getText();
+        String fundName = tf_fundName.getText();
+
         String sortName = null;
         String sortType = null;
 
@@ -149,7 +178,7 @@ public class FundRankController extends AbstractFxView implements InitializingBe
             sortType = column.getSortType() == TreeTableColumn.SortType.ASCENDING ? "asc" : "desc";
         }
 
-        FundRankPageModel pageModel = fundBusinessService.queryFundRank(sortName, sortType, pn, psize);
+        FundRankPageModel pageModel = fundBusinessService.queryFundRank(fundCode, fundName, sortName, sortType, pn, psize);
 
         int totalCount = pageModel.getTotalRecords();
         int no = pageModel.getPageNo();

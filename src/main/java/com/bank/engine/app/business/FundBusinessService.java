@@ -1,5 +1,6 @@
 package com.bank.engine.app.business;
 
+import com.bank.engine.app.model.page.FundBasicPageModel;
 import com.bank.engine.app.model.page.FundRankPageModel;
 
 public interface FundBusinessService {
@@ -9,5 +10,14 @@ public interface FundBusinessService {
      *
      * @return
      */
-    FundRankPageModel queryFundRank(String sortName, String sortType, Integer pageNo, Integer pageSize);
+    FundRankPageModel queryFundRank(String fundCode, String fundName,
+                                    String sortName, String sortType,
+                                    Integer pageNo, Integer pageSize);
+
+    /**
+     * 查询 基金
+     *
+     * @return
+     */
+    FundBasicPageModel queryFundBasic(Integer pageNo, Integer pageSize);
 }

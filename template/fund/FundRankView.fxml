@@ -11,9 +11,48 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.Integer?>
+<?import javafx.scene.layout.FlowPane?>
+<?import com.jfoenix.controls.JFXTextField?>
 <BorderPane fx:id="mainPane"
             xmlns="http://javafx.com/javafx/8.0.112"
             xmlns:fx="http://javafx.com/fxml/1">
+
+    <top>
+        <VBox>
+            <HBox spacing="15">
+                <padding>
+                    <Insets bottom="5" left="20" right="20" top="5"/>
+                </padding>
+
+                <FlowPane orientation="HORIZONTAL" prefWrapLength="NaN">
+                    <Label text="基金编码:"/>
+                    <JFXTextField fx:id="tf_fundCode" style="-fx-pref-width: 100px">
+                        <FlowPane.margin>
+                            <Insets left="5.0"/>
+                        </FlowPane.margin>
+                    </JFXTextField>
+                </FlowPane>
+
+                <FlowPane orientation="HORIZONTAL" prefWrapLength="NaN">
+                    <Label text="基金名称:"/>
+                    <JFXTextField fx:id="tf_fundName" style="-fx-pref-width: 100px">
+                        <FlowPane.margin>
+                            <Insets left="5.0"/>
+                        </FlowPane.margin>
+                    </JFXTextField>
+                </FlowPane>
+
+                <JFXButton fx:id="btnSearch" buttonType="RAISED"
+                           style="-fx-text-fill:WHITE;-fx-background-color:#22ae79;-fx-font-size:14px;" text="搜 索"/>
+
+                <JFXButton fx:id="btnRest" buttonType="RAISED"
+                           style="-fx-text-fill:WHITE;-fx-background-color:#22ae79;-fx-font-size:14px;" text="重 置"/>
+
+
+            </HBox>
+        </VBox>
+    </top>
+
     <center>
         <StackPane>
             <children>

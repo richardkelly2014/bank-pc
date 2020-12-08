@@ -2,6 +2,7 @@ package com.bank.engine.app.view;
 
 import com.bank.engine.app.config.AbstractFxView;
 import com.bank.engine.app.config.FXMLViewAndController;
+import com.bank.engine.app.view.fund.FundBasicController;
 import com.bank.engine.app.view.fund.FundRankController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
@@ -17,6 +18,8 @@ public class MainController extends AbstractFxView {
 
     @Autowired
     private FundRankController fundRankController;
+    @Autowired
+    private FundBasicController fundBasicController;
 
     @FXML
     private JFXButton btnFundRank, btnFundTheme, btnFundMark;
@@ -28,6 +31,11 @@ public class MainController extends AbstractFxView {
         btnFundRank.setOnAction(action -> {
             drawer.setContent(fundRankController.getView());
             fundRankController.refresh();
+        });
+
+        btnFundMark.setOnAction(action -> {
+            drawer.setContent(fundBasicController.getView());
+            fundBasicController.refresh();
         });
     }
 }
