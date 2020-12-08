@@ -166,7 +166,11 @@ public abstract class AbstractFxView implements Initializable {
         loader.setLocation(resource);
         loader.setController(this);
         try {
+            long start = System.currentTimeMillis();
+
             loader.load();
+
+            log.info("load view class={},{}ms", super.getClass().getName(), (System.currentTimeMillis() - start));
         } catch (final IOException | IllegalStateException e) {
             e.printStackTrace();
             throw new IllegalStateException("Cannot load " + getClass().getSimpleName().toLowerCase(), e);

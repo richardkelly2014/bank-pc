@@ -49,8 +49,12 @@ public final class DefaultThreadFactory {
     }
 
     public static void sleep() {
+        sleep(2000);
+    }
+
+    public static void sleep(long n) {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(n);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

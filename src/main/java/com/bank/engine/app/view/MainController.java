@@ -25,6 +25,9 @@ public class MainController extends AbstractFxView {
 
     @Override
     public void initialize() {
-        btnFundRank.setOnAction(action -> drawer.setContent(fundRankController.getView()));
+        btnFundRank.setOnAction(action -> {
+            drawer.setContent(fundRankController.getView());
+            fundRankController.refresh();
+        });
     }
 }

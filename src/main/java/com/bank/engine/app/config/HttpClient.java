@@ -24,10 +24,10 @@ public class HttpClient {
      */
     public <T> T get(String url, Class<T> clazz) {
         try {
-
+            long start = System.currentTimeMillis();
             ResponseEntity<T> responseEntity = restTemplate.getForEntity(url, clazz);
 
-            log.info("url={} \t status={}", url, responseEntity.getStatusCode());
+            log.info("url={} \t status={} \t {}ms", url, responseEntity.getStatusCode(), (System.currentTimeMillis() - start));
 
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 return responseEntity.getBody();
