@@ -1,0 +1,94 @@
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import com.jfoenix.controls.JFXTreeTableColumn?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.Integer?>
+<BorderPane fx:id="mainPane"
+            xmlns="http://javafx.com/javafx/8.0.112"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <StackPane>
+            <children>
+                <VBox>
+                    <children>
+                        <JFXTreeTableView fx:id="recordRankTable" sortMode="ALL_DESCENDANTS" maxWidth="Infinity" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <JFXTreeTableColumn sortable="false" minWidth="100" fx:id="fundTreeTableColumnCode" text="基金代码"/>
+                                <JFXTreeTableColumn sortable="false" minWidth="220" fx:id="fundTreeTableColumnName" text="基金名称"/>
+
+                                <JFXTreeTableColumn sortable="false" minWidth="80" fx:id="fundTreeTableColumnDay" text="日期"/>
+
+                                <JFXTreeTableColumn sortable="false" minWidth="80" fx:id="fundTreeTableColumnUnit" text="单位净值"/>
+                                <JFXTreeTableColumn sortable="false" minWidth="80" fx:id="fundTreeTableColumnGrand" text="累计净值"/>
+
+                                <JFXTreeTableColumn minWidth="80" fx:id="fundTreeTableColumnRate" text="日增长"/>
+                                <JFXTreeTableColumn sortType="ASCENDING" minWidth="80" userData="week" fx:id="fundTreeTableColumnWeek" text="近一周"/>
+
+                                <JFXTreeTableColumn sortType="ASCENDING" minWidth="80" userData="month" fx:id="fundTreeTableColumnMonth" text="近一月"/>
+                                <JFXTreeTableColumn sortType="ASCENDING" minWidth="80" userData="month3" fx:id="fundTreeTableColumn3Month" text="近三月"/>
+                                <JFXTreeTableColumn sortType="ASCENDING" minWidth="80" userData="month6" fx:id="fundTreeTableColumn6Month" text="近6月"/>
+
+                                <JFXTreeTableColumn sortType="ASCENDING" userData="year" minWidth="80" fx:id="fundTreeTableColumnYear" text="近一年"/>
+                                <JFXTreeTableColumn sortType="ASCENDING" userData="year2" minWidth="80" fx:id="fundTreeTableColumn2Year" text="近二年"/>
+                                <JFXTreeTableColumn sortable="false" minWidth="80" fx:id="fundTreeTableColumn3Year" text="近三年"/>
+
+                                <JFXTreeTableColumn fx:id="columnOperation" maxWidth="Infinity" minWidth="200"
+                                                    text="操作"/>
+
+                            </columns>
+                        </JFXTreeTableView>
+                        <HBox alignment="CENTER_RIGHT" spacing="10">
+                            <padding>
+                                <Insets top="5" left="20" right="20" bottom="5"/>
+                            </padding>
+                            <children>
+                                <Label text="总条数:"/>
+                                <Label fx:id="totalLabel" style="-fx-text-fill: rgba(37,101,252,0.75);" text="1"/>
+                                <JFXComboBox fx:id="pageSize">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <Integer fx:value="100"/>
+                                            <Integer fx:value="200"/>
+                                        </FXCollections>
+                                    </items>
+                                    <value>
+                                        <Integer fx:value="100"/>
+                                    </value>
+                                </JFXComboBox>
+
+                                <JFXButton fx:id="btnPrev" buttonType="RAISED"
+                                           style="-fx-background-color:WHITE;" text="上一页"/>
+
+                                <Label fx:id="pageNo" text="1"/>
+
+                                <Label text="/"/>
+
+                                <Label fx:id="totalPage" text="1"/>
+
+                                <Label text="页"/>
+
+                                <JFXButton fx:id="btnNext" buttonType="RAISED"
+                                           style="-fx-background-color:WHITE;" text="下一页"/>
+
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+
+
+                <JFXSpinner fx:id="spinnerInfo"
+                            styleClass="green-spinner" visible="false" StackPane.alignment="CENTER"
+                            startingAngle="0" radius="13"/>
+
+            </children>
+        </StackPane>
+    </center>
+</BorderPane>
