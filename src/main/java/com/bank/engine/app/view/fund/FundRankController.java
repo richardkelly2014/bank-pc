@@ -89,6 +89,7 @@ public class FundRankController extends AbstractFxView implements InitializingBe
         setupCellValueFactory(fundTreeTableColumnUnit, FundRankModel::unitProperty);
         setupCellValueFactory(fundTreeTableColumnGrand, FundRankModel::grandProperty);
 
+        setupCellValueFactory(fundTreeTableColumnRate, FundRankModel::dayRateProperty);
         setupCellValueFactory(fundTreeTableColumnWeek, FundRankModel::weekProperty);
 
         setupCellValueFactory(fundTreeTableColumnMonth, FundRankModel::monthProperty);
@@ -99,6 +100,7 @@ public class FundRankController extends AbstractFxView implements InitializingBe
         setupCellValueFactory(fundTreeTableColumn2Year, FundRankModel::year2Property);
         setupCellValueFactory(fundTreeTableColumn3Year, FundRankModel::year3Property);
 
+        setupCellFactory(fundTreeTableColumnRate);
         setupCellFactory(fundTreeTableColumnWeek);
         setupCellFactory(fundTreeTableColumnMonth);
         setupCellFactory(fundTreeTableColumn3Month);

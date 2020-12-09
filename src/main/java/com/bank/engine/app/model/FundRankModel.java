@@ -54,6 +54,12 @@ public class FundRankModel extends RecursiveTreeObject<FundRankModel> {
         return new SimpleStringProperty(String.valueOf(value));
     }
 
+    public StringProperty dayRateProperty() {
+        int rate = dayRate != null ? dayRate : 0;
+
+        return fundRateProperty(rate);
+    }
+
     public StringProperty weekProperty() {
         return fundRateProperty(weekRate);
     }

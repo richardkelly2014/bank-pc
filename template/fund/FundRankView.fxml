@@ -68,7 +68,7 @@
                                 <JFXTreeTableColumn sortable="false" minWidth="80" fx:id="fundTreeTableColumnUnit" text="单位净值"/>
                                 <JFXTreeTableColumn sortable="false" minWidth="80" fx:id="fundTreeTableColumnGrand" text="累计净值"/>
 
-                                <JFXTreeTableColumn minWidth="80" fx:id="fundTreeTableColumnRate" text="日增长"/>
+                                <JFXTreeTableColumn sortable="false" minWidth="80" fx:id="fundTreeTableColumnRate" text="日增长"/>
                                 <JFXTreeTableColumn sortType="ASCENDING" minWidth="80" userData="week" fx:id="fundTreeTableColumnWeek" text="近一周"/>
 
                                 <JFXTreeTableColumn sortType="ASCENDING" minWidth="80" userData="month" fx:id="fundTreeTableColumnMonth" text="近一月"/>
@@ -79,7 +79,7 @@
                                 <JFXTreeTableColumn sortType="ASCENDING" userData="year2" minWidth="80" fx:id="fundTreeTableColumn2Year" text="近二年"/>
                                 <JFXTreeTableColumn sortable="false" minWidth="80" fx:id="fundTreeTableColumn3Year" text="近三年"/>
 
-                                <JFXTreeTableColumn fx:id="columnOperation" maxWidth="Infinity" minWidth="200"
+                                <JFXTreeTableColumn sortable="false" fx:id="columnOperation" maxWidth="Infinity" minWidth="200"
                                                     text="操作"/>
 
                             </columns>
