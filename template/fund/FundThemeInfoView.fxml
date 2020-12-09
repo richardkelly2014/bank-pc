@@ -1,0 +1,31 @@
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import com.jfoenix.controls.JFXTreeTableColumn?>
+<BorderPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <StackPane>
+            <children>
+                <JFXTreeTableView fx:id="recordTable" maxWidth="Infinity">
+                    <columns>
+                        <JFXTreeTableColumn minWidth="100" fx:id="fundTreeTableColumnCode" text="基金代码"/>
+                        <JFXTreeTableColumn minWidth="220" fx:id="fundTreeTableColumnName" text="基金名称"/>
+
+
+                        <JFXTreeTableColumn minWidth="80" fx:id="fundTreeTableColumnWeek" text="近一周"/>
+
+                        <JFXTreeTableColumn minWidth="80" fx:id="fundTreeTableColumnMonth" text="近一月"/>
+                        <JFXTreeTableColumn minWidth="80" fx:id="fundTreeTableColumn3Month" text="近三月"/>
+                        <JFXTreeTableColumn minWidth="80" fx:id="fundTreeTableColumn6Month" text="近6月"/>
+
+                        <JFXTreeTableColumn minWidth="80" fx:id="fundTreeTableColumnYear" text="近一年"/>
+
+                        <JFXTreeTableColumn fx:id="columnOperation" maxWidth="Infinity" minWidth="200"
+                                            text="操作"/>
+
+                    </columns>
+                </JFXTreeTableView>
+            </children>
+        </StackPane>
+    </center>
+</BorderPane>

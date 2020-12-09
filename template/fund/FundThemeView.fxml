@@ -1,6 +1,103 @@
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import com.jfoenix.controls.JFXTreeTableColumn?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.FlowPane?>
+<?import com.jfoenix.controls.JFXTextField?>
 <BorderPane fx:id="mainPane"
             xmlns="http://javafx.com/javafx/8.0.112"
             xmlns:fx="http://javafx.com/fxml/1">
 
+    <top>
+        <VBox>
+            <HBox spacing="10">
+                <padding>
+                    <Insets bottom="5" left="20" right="20" top="5"/>
+                </padding>
+                <Label text="主题类别划分："/>
+                <JFXRadioButton text="行业" userData="行业">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="themeGroup"/>
+                    </toggleGroup>
+                </JFXRadioButton>
+                <JFXRadioButton text="概念" userData="概念" toggleGroup="$themeGroup"/>
+                <JFXRadioButton text="指数" userData="指数" toggleGroup="$themeGroup"/>
+                <JFXRadioButton text="地区" userData="地区" toggleGroup="$themeGroup"/>
+                <JFXRadioButton text="QDII" userData="QDII" toggleGroup="$themeGroup"/>
+
+                <FlowPane orientation="HORIZONTAL" prefWrapLength="NaN">
+                    <HBox.margin>
+                        <Insets left="40"/>
+                    </HBox.margin>
+
+                    <Label text="基金名称:"/>
+                    <JFXTextField fx:id="themeName" style="-fx-pref-width: 100px">
+                        <FlowPane.margin>
+                            <Insets left="5.0"/>
+                        </FlowPane.margin>
+                    </JFXTextField>
+                </FlowPane>
+            </HBox>
+            <HBox spacing="10">
+                <padding>
+                    <Insets bottom="5" left="20" right="20"/>
+                </padding>
+                <Label text="涨幅阶段排序："/>
+                <JFXRadioButton text="近一周" userData="week">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="rateGroup"/>
+                    </toggleGroup>
+                </JFXRadioButton>
+                <JFXRadioButton text="近一月" userData="month" toggleGroup="$rateGroup"/>
+                <JFXRadioButton text="近三月" userData="month3" toggleGroup="$rateGroup"/>
+                <JFXRadioButton text="近六月" userData="month6" toggleGroup="$rateGroup"/>
+                <JFXRadioButton text="近一年" userData="year" toggleGroup="$rateGroup"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <StackPane>
+
+            <JFXTreeTableView fx:id="recordThemeTable" sortMode="ALL_DESCENDANTS" maxWidth="Infinity">
+                <columns>
+
+                    <JFXTreeTableColumn sortable="false" minWidth="160" fx:id="fundTreeTableColumnName" text="板块名称"/>
+                    <JFXTreeTableColumn sortable="false" minWidth="100" fx:id="fundTreeTableColumnType" text="板块类型"/>
+
+                    <JFXTreeTableColumn sortable="false" minWidth="80" fx:id="fundTreeTableColumnRate" text="日增长"/>
+                    <JFXTreeTableColumn sortType="ASCENDING" minWidth="80" userData="week"
+                                        fx:id="fundTreeTableColumnWeek" text="近一周"/>
+
+                    <JFXTreeTableColumn sortType="ASCENDING" minWidth="80" userData="month"
+                                        fx:id="fundTreeTableColumnMonth" text="近一月"/>
+                    <JFXTreeTableColumn sortType="ASCENDING" minWidth="80" userData="month3"
+                                        fx:id="fundTreeTableColumn3Month" text="近三月"/>
+                    <JFXTreeTableColumn sortType="ASCENDING" minWidth="80" userData="month6"
+                                        fx:id="fundTreeTableColumn6Month" text="近6月"/>
+
+                    <JFXTreeTableColumn sortType="ASCENDING" userData="year" minWidth="80"
+                                        fx:id="fundTreeTableColumnYear" text="近一年"/>
+                    <JFXTreeTableColumn sortType="ASCENDING" userData="year2" minWidth="80"
+                                        fx:id="fundTreeTableColumn2Year" text="近二年"/>
+                    <JFXTreeTableColumn sortable="false" minWidth="80" fx:id="fundTreeTableColumn3Year" text="近三年"/>
+
+                    <JFXTreeTableColumn sortable="false" fx:id="columnOperation" maxWidth="Infinity" minWidth="200"
+                                        text="操作"/>
+
+                </columns>
+            </JFXTreeTableView>
+
+            <JFXSpinner fx:id="spinnerInfo"
+                        styleClass="green-spinner" visible="false" StackPane.alignment="CENTER"
+                        startingAngle="0" radius="13"/>
+        </StackPane>
+    </center>
 </BorderPane>

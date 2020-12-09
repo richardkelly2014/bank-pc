@@ -4,6 +4,7 @@ import com.bank.engine.app.config.HttpClient;
 import com.bank.engine.app.model.base.ResultModel;
 import com.bank.engine.app.model.page.FundBasicPageModel;
 import com.bank.engine.app.model.page.FundRankPageModel;
+import com.bank.engine.app.model.page.FundThemeResultModel;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +41,9 @@ public class FundBusinessServiceImpl implements FundBusinessService {
         }
 
         FundRankPageModel pageModel = httpClient.get(url, FundRankPageModel.class);
+        if (pageModel == null) {
+            pageModel = new FundRankPageModel();
+        }
         return pageModel;
     }
 
@@ -61,6 +65,19 @@ public class FundBusinessServiceImpl implements FundBusinessService {
 
         FundBasicPageModel pageModel = httpClient.get(url, FundBasicPageModel.class);
         return pageModel;
+    }
+
+    @Override
+    public FundThemeResultModel queryFundTheme(String themeName, String dataField) {
+        String url = baseUrl + "/theme/v1/search?t=_1";
+        if (StringUtils.isNotBlank(themeName)) {
+            url += "&themeName=" + themeName;
+        }
+        if (StringUtils.isNotBlank(dataField)) {
+            url += "&dataField=" + dataField;
+        }
+        FundThemeResultModel resultModel = httpClient.get(url, FundThemeResultModel.class);
+        return resultModel;
     }
 
     @Override

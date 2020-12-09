@@ -7,7 +7,9 @@ import com.bank.engine.app.view.fund.FundRankController;
 import com.bank.engine.app.view.fund.FundThemeController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,5 +43,19 @@ public class MainController extends AbstractFxView {
             fundBasicController.refresh();
         });
 
+        btnFundTheme.setOnAction(action -> {
+            drawer.setContent(fundThemeController.getView());
+            fundThemeController.refresh();
+        });
+    }
+
+    public void showNetWarn() {
+        Platform.runLater(()->{
+            Alert alertInfo = new Alert(Alert.AlertType.WARNING);
+            alertInfo.setTitle("提示");
+            alertInfo.setHeaderText(null);
+            alertInfo.setContentText("当前网络有误,请联系管理员！");
+            alertInfo.show();
+        });
     }
 }

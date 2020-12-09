@@ -3,6 +3,7 @@ package com.bank.engine.app.business;
 import com.bank.engine.app.model.base.ResultModel;
 import com.bank.engine.app.model.page.FundBasicPageModel;
 import com.bank.engine.app.model.page.FundRankPageModel;
+import com.bank.engine.app.model.page.FundThemeResultModel;
 
 public interface FundBusinessService {
 
@@ -32,6 +33,15 @@ public interface FundBusinessService {
      * @return
      */
     ResultModel syncFundAnalyse(String fundCode, String syncType);
+
+    /**
+     * 查询 基金 主题
+     *
+     * @param themeName
+     * @param dataField
+     * @return
+     */
+    FundThemeResultModel queryFundTheme(String themeName, String dataField);
 
     /**
      * add

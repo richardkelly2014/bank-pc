@@ -30,6 +30,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 import static com.bank.engine.app.util.UiComponentUtil.createIconButton;
+import static com.bank.engine.app.util.UiComponentUtil.rateSetupCellFactory;
 import static com.bank.engine.app.util.UiComponentUtil.setupCellValueFactory;
 
 @Slf4j
@@ -109,14 +110,14 @@ public class FundRankController extends AbstractFxView implements InitializingBe
         setupCellValueFactory(fundTreeTableColumn2Year, FundRankModel::year2Property);
         setupCellValueFactory(fundTreeTableColumn3Year, FundRankModel::year3Property);
 
-        setupCellFactory(fundTreeTableColumnRate);
-        setupCellFactory(fundTreeTableColumnWeek);
-        setupCellFactory(fundTreeTableColumnMonth);
-        setupCellFactory(fundTreeTableColumn3Month);
-        setupCellFactory(fundTreeTableColumn6Month);
-        setupCellFactory(fundTreeTableColumnYear);
-        setupCellFactory(fundTreeTableColumn2Year);
-        setupCellFactory(fundTreeTableColumn3Year);
+        rateSetupCellFactory(fundTreeTableColumnRate);
+        rateSetupCellFactory(fundTreeTableColumnWeek);
+        rateSetupCellFactory(fundTreeTableColumnMonth);
+        rateSetupCellFactory(fundTreeTableColumn3Month);
+        rateSetupCellFactory(fundTreeTableColumn6Month);
+        rateSetupCellFactory(fundTreeTableColumnYear);
+        rateSetupCellFactory(fundTreeTableColumn2Year);
+        rateSetupCellFactory(fundTreeTableColumn3Year);
 
         this.columnOperation.setCellFactory((TreeTableColumn<FundRankModel, String> param) -> {
             JFXTreeTableCell<FundRankModel, String> cell = new JFXTreeTableCell<FundRankModel, String>() {
@@ -268,30 +269,6 @@ public class FundRankController extends AbstractFxView implements InitializingBe
                 alertInfo.showAndWait();
             }
         }
-    }
-
-
-    private void setupCellFactory(JFXTreeTableColumn<FundRankModel, String> column) {
-        column.setCellFactory((TreeTableColumn<FundRankModel, String> param) -> {
-            JFXTreeTableCell<FundRankModel, String> cell = new JFXTreeTableCell<FundRankModel, String>() {
-                @Override
-                protected void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        Label label = new Label(item);
-                        if (item.startsWith("+")) {
-                            label.setTextFill(Paint.valueOf("#FF2043"));
-                        } else if (item.startsWith("-")) {
-                            label.setTextFill(Paint.valueOf("#15FF94"));
-                        }
-                        setGraphic(label);
-                    }
-                }
-            };
-            return cell;
-        });
     }
 
     @Override
