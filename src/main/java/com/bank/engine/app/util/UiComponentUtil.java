@@ -1,9 +1,14 @@
 package com.bank.engine.app.util;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.paint.Color;
 import lombok.experimental.UtilityClass;
+import org.kordamp.ikonli.Ikon;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.function.Function;
 
@@ -28,6 +33,20 @@ public class UiComponentUtil {
                 return column.getComputedValue(param);
             }
         });
+    }
+
+    public static JFXButton createIconButton(Ikon icon) {
+        JFXButton jfxButton = new JFXButton(null, FontIcon.of(icon));
+        jfxButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
+        return jfxButton;
+    }
+
+    public static JFXButton createIconButton(Ikon icon, int iconSize, Color iconColor) {
+        JFXButton jfxButton = new JFXButton(null, FontIcon.of(icon, iconSize, iconColor));
+        jfxButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
+        return jfxButton;
     }
 
 }

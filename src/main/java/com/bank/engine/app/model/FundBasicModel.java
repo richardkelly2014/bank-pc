@@ -56,6 +56,10 @@ public class FundBasicModel extends RecursiveTreeObject<FundBasicModel> {
         return new SimpleStringProperty(fundRiskName);
     }
 
+    public StringProperty issueProperty() {
+        return new SimpleStringProperty(issueDate);
+    }
+
     public StringProperty setupProperty() {
         return new SimpleStringProperty(setupDate);
     }

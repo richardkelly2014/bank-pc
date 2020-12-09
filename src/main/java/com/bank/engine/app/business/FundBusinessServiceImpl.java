@@ -1,6 +1,7 @@
 package com.bank.engine.app.business;
 
 import com.bank.engine.app.config.HttpClient;
+import com.bank.engine.app.model.base.ResultModel;
 import com.bank.engine.app.model.page.FundBasicPageModel;
 import com.bank.engine.app.model.page.FundRankPageModel;
 import org.apache.commons.lang3.StringUtils;
@@ -60,5 +61,25 @@ public class FundBusinessServiceImpl implements FundBusinessService {
 
         FundBasicPageModel pageModel = httpClient.get(url, FundBasicPageModel.class);
         return pageModel;
+    }
+
+    @Override
+    public ResultModel syncFundAnalyse(String fundCode, String syncType) {
+
+        String url = baseUrl + "/rank/v1/sync?fundCode=" + fundCode;
+        if (StringUtils.isNotBlank(syncType) && StringUtils.isNumeric(syncType)) {
+            url += "&syncType=" + syncType;
+        }
+
+        ResultModel resultModel = httpClient.get(url, ResultModel.class);
+
+        return resultModel;
+    }
+
+    @Override
+    public ResultModel addToAnalyse(String fundCode) {
+        String url = baseUrl + "/v1/addToAnalyse?fundCode=" + fundCode;
+
+        return httpClient.get(url, ResultModel.class);
     }
 }

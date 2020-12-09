@@ -4,6 +4,7 @@ import com.bank.engine.app.business.FundBusinessService;
 import com.bank.engine.app.config.AbstractFxView;
 import com.bank.engine.app.config.FXMLViewAndController;
 import com.bank.engine.app.model.FundRankModel;
+import com.bank.engine.app.model.base.ResultModel;
 import com.bank.engine.app.model.page.FundRankPageModel;
 import com.bank.engine.app.util.DefaultThreadFactory;
 import com.jfoenix.controls.*;
@@ -13,14 +14,22 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import lombok.extern.slf4j.Slf4j;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
+import static com.bank.engine.app.util.UiComponentUtil.createIconButton;
 import static com.bank.engine.app.util.UiComponentUtil.setupCellValueFactory;
 
 @Slf4j
@@ -109,11 +118,38 @@ public class FundRankController extends AbstractFxView implements InitializingBe
         setupCellFactory(fundTreeTableColumn2Year);
         setupCellFactory(fundTreeTableColumn3Year);
 
+        this.columnOperation.setCellFactory((TreeTableColumn<FundRankModel, String> param) -> {
+            JFXTreeTableCell<FundRankModel, String> cell = new JFXTreeTableCell<FundRankModel, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        HBox hBox = new HBox(1);
+                        hBox.setAlignment(Pos.TOP_CENTER);
+
+                        JFXButton sync = createIconButton(FontAwesomeSolid.SYNC, 15, Color.GREEN);
+
+                        sync.setOnAction(action -> sync(getTreeTableView().getTreeItem(getIndex()).getValue(), "2"));
+
+                        JFXButton recy = createIconButton(FontAwesomeSolid.RECYCLE, 15, Color.BLUE);
+                        recy.setOnAction(action -> sync(getTreeTableView().getTreeItem(getIndex()).getValue(), "1"));
+
+                        hBox.getChildren().addAll(sync, recy);
+                        setGraphic(hBox);
+                    }
+                }
+            };
+            return cell;
+        });
+
         this.recordRankTable.setRoot(new RecursiveTreeItem<>(dummyData, RecursiveTreeObject::getChildren));
         this.recordRankTable.setShowRoot(false);
 
         this.btnPrev.setOnAction(action -> pageChange(1));
         this.btnNext.setOnAction(action -> pageChange(2));
+
         this.recordRankTable.setSortPolicy(tv -> {
             //有选择排序字段
             if (recordRankTable.getSortOrder() != null && recordRankTable.getSortOrder().size() > 0) {
@@ -123,6 +159,7 @@ public class FundRankController extends AbstractFxView implements InitializingBe
         });
 
         this.btnSearch.setOnAction(action -> DefaultThreadFactory.runLater(() -> search(1)));
+
         this.btnRest.setOnAction(action -> {
             tf_fundCode.setText(null);
             tf_fundName.setText(null);
@@ -133,6 +170,7 @@ public class FundRankController extends AbstractFxView implements InitializingBe
                 DefaultThreadFactory.runLater(() -> search(1));
             }
         });
+
         this.tf_fundName.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
                 DefaultThreadFactory.runLater(() -> search(1));
@@ -199,6 +237,39 @@ public class FundRankController extends AbstractFxView implements InitializingBe
             totalLabel.setText(String.valueOf(totalCount));
         });
     }
+
+    /**
+     * 同步
+     *
+     * @param model
+     * @param type
+     */
+    private void sync(FundRankModel model, String type) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("同步数据提示");
+        alert.setHeaderText(null);
+        alert.setContentText("是否确认同步数据?");
+        String fundCode = model.getFundCode();
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            ResultModel resultModel = fundBusinessService.syncFundAnalyse(fundCode, type);
+
+            Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
+            alertInfo.setTitle("提示");
+            alertInfo.setHeaderText(null);
+
+            if (resultModel.getCode() == 0) {
+                alertInfo.setContentText("已经提交后台同步，请稍后刷新页面！");
+                alertInfo.showAndWait();
+            } else {
+                alertInfo.setContentText("提交失败，请与管理人员联系!");
+                alertInfo.showAndWait();
+            }
+        }
+    }
+
 
     private void setupCellFactory(JFXTreeTableColumn<FundRankModel, String> column) {
         column.setCellFactory((TreeTableColumn<FundRankModel, String> param) -> {

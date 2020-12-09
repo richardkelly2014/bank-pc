@@ -4,22 +4,28 @@ import com.bank.engine.app.business.FundBusinessService;
 import com.bank.engine.app.config.AbstractFxView;
 import com.bank.engine.app.config.FXMLViewAndController;
 import com.bank.engine.app.model.FundBasicModel;
+import com.bank.engine.app.model.base.ResultModel;
 import com.bank.engine.app.model.page.FundBasicPageModel;
 import com.bank.engine.app.util.DefaultThreadFactory;
 import com.jfoenix.controls.*;
+import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleGroup;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import lombok.extern.slf4j.Slf4j;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import static com.bank.engine.app.util.UiComponentUtil.createIconButton;
 import static com.bank.engine.app.util.UiComponentUtil.setupCellValueFactory;
 
 /**
@@ -44,6 +50,8 @@ public class FundBasicController extends AbstractFxView implements InitializingB
     private JFXTreeTableColumn<FundBasicModel, String> fundTreeTableColumnInvestType;
     @FXML
     private JFXTreeTableColumn<FundBasicModel, String> fundTreeTableColumnRisk;
+    @FXML
+    private JFXTreeTableColumn<FundBasicModel, String> fundTreeTableColumnIssue;
     @FXML
     private JFXTreeTableColumn<FundBasicModel, String> fundTreeTableColumnSetup;
     @FXML
@@ -82,10 +90,38 @@ public class FundBasicController extends AbstractFxView implements InitializingB
         setupCellValueFactory(fundTreeTableColumnType, FundBasicModel::fundTypeProperty);
         setupCellValueFactory(fundTreeTableColumnInvestType, FundBasicModel::fundInvestTypeProperty);
         setupCellValueFactory(fundTreeTableColumnRisk, FundBasicModel::fundRiskProperty);
+        setupCellValueFactory(fundTreeTableColumnIssue, FundBasicModel::issueProperty);
         setupCellValueFactory(fundTreeTableColumnSetup, FundBasicModel::setupProperty);
         setupCellValueFactory(fundTreeTableColumnAsset, FundBasicModel::assetProperty);
         setupCellValueFactory(fundTreeTableColumnShare, FundBasicModel::shareProperty);
         setupCellValueFactory(fundTreeTableColumnCompany, FundBasicModel::fundCompanyProperty);
+
+        this.columnOperation.setCellFactory((TreeTableColumn<FundBasicModel, String> param) -> {
+            JFXTreeTableCell<FundBasicModel, String> cell = new JFXTreeTableCell<FundBasicModel, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        HBox hBox = new HBox(1);
+                        hBox.setAlignment(Pos.TOP_CENTER);
+
+                        JFXButton info = createIconButton(FontAwesomeSolid.INFO, 15, Color.GREEN);
+                        info.setTooltip(new Tooltip("基金详情"));
+
+                        JFXButton add = createIconButton(FontAwesomeSolid.PLUS, 15, Color.GREEN);
+                        add.setTooltip(new Tooltip("添加排行"));
+                        add.setOnAction(action -> addToAnalyse(getTreeTableView().getTreeItem(getIndex()).getValue()));
+
+                        hBox.getChildren().addAll(info, add);
+
+                        setGraphic(hBox);
+                    }
+                }
+            };
+            return cell;
+        });
 
         this.recordTable.setRoot(new RecursiveTreeItem<>(dummyData, RecursiveTreeObject::getChildren));
         this.recordTable.setShowRoot(false);
@@ -159,6 +195,22 @@ public class FundBasicController extends AbstractFxView implements InitializingB
             totalPage.setText(String.valueOf(page));
             totalLabel.setText(String.valueOf(totalCount));
         });
+    }
 
+    private void addToAnalyse(FundBasicModel model) {
+        String fundCode = model.getFundCode();
+        ResultModel resultModel = fundBusinessService.addToAnalyse(fundCode);
+
+        Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
+        alertInfo.setTitle("提示");
+        alertInfo.setHeaderText(null);
+
+        if (resultModel.getCode() == 0) {
+            alertInfo.setContentText("添加成功");
+            alertInfo.showAndWait();
+        } else {
+            alertInfo.setContentText(resultModel.getMsg());
+            alertInfo.showAndWait();
+        }
     }
 }

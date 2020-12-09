@@ -50,7 +50,7 @@
                             <Tooltip text="基金市场"/>
                         </tooltip>
                         <graphic>
-                            <FontIcon iconLiteral="fas-desktop" iconSize="25" iconColor="white"/>
+                            <FontIcon iconLiteral="fas-cart-plus" iconSize="25" iconColor="white"/>
                         </graphic>
                     </JFXButton>
                 </JFXRippler>

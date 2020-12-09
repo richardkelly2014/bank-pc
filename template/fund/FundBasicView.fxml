@@ -88,6 +88,9 @@
                                 <JFXTreeTableColumn fx:id="fundTreeTableColumnRisk" minWidth="100" sortable="false"
                                                     text="风险等级"/>
 
+                                <JFXTreeTableColumn fx:id="fundTreeTableColumnIssue" minWidth="80" sortable="false"
+                                                    text="发行日期"/>
+
                                 <JFXTreeTableColumn fx:id="fundTreeTableColumnSetup" minWidth="80" sortable="false"
                                                     text="成立日期"/>
                                 <JFXTreeTableColumn fx:id="fundTreeTableColumnAsset" minWidth="100" sortable="false"
