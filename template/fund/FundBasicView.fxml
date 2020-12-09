@@ -1,19 +1,73 @@
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import com.jfoenix.controls.JFXSpinner?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableColumn?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import java.lang.Integer?>
 <?import javafx.collections.FXCollections?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.geometry.Insets?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
-<?import com.jfoenix.controls.JFXTreeTableColumn?>
-<BorderPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
-    <top>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
+<BorderPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <VBox>
+            <HBox spacing="10">
+                <padding>
+                    <Insets left="20" top="5"/>
+                </padding>
+                <FlowPane orientation="HORIZONTAL" prefWrapLength="NaN">
+                    <Label text="基金编码:"/>
+                    <JFXTextField fx:id="tf_fundCode" style="-fx-pref-width: 100px">
+                        <FlowPane.margin>
+                            <Insets left="5.0"/>
+                        </FlowPane.margin>
+                    </JFXTextField>
+                </FlowPane>
+
+                <FlowPane orientation="HORIZONTAL" prefWrapLength="NaN">
+                    <Label text="基金名称:"/>
+                    <JFXTextField fx:id="tf_fundName" style="-fx-pref-width: 100px">
+                        <FlowPane.margin>
+                            <Insets left="5.0"/>
+                        </FlowPane.margin>
+                    </JFXTextField>
+                </FlowPane>
+
+            </HBox>
+            <HBox spacing="10">
+                <padding>
+                    <Insets bottom="15" left="20" top="15"/>
+                </padding>
+                <Label text="基金类型:"/>
+
+                <JFXRadioButton text="全部">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="fundTypeGroup"/>
+                    </toggleGroup>
+                </JFXRadioButton>
+
+                <JFXRadioButton text="保本型" toggleGroup="$fundTypeGroup" userData="1" />
+                <JFXRadioButton text="债券型" toggleGroup="$fundTypeGroup" userData="2"/>
+                <JFXRadioButton text="基金型" toggleGroup="$fundTypeGroup" userData="3"/>
+                <JFXRadioButton text="封闭式基金" toggleGroup="$fundTypeGroup" userData="4"/>
+                <JFXRadioButton text="混合型" toggleGroup="$fundTypeGroup" userData="5"/>
+                <JFXRadioButton text="短期理财" toggleGroup="$fundTypeGroup" userData="6"/>
+                <JFXRadioButton text="股票型" toggleGroup="$fundTypeGroup" userData="7"/>
+                <JFXRadioButton text="货币型" toggleGroup="$fundTypeGroup" userData="8"/>
+                <JFXRadioButton text="黄金型" toggleGroup="$fundTypeGroup" userData="9"/>
+
+            </HBox>
+        </VBox>
     </top>
     <center>
         <StackPane>
@@ -22,26 +76,35 @@
                     <children>
                         <JFXTreeTableView fx:id="recordTable" maxWidth="Infinity" VBox.vgrow="ALWAYS">
                             <columns>
-                                <JFXTreeTableColumn sortable="false" fx:id="fundTreeTableColumnCode" minWidth="100" text="编码"/>
-                                <JFXTreeTableColumn sortable="false" fx:id="fundTreeTableColumnName" minWidth="200" text="名称"/>
+                                <JFXTreeTableColumn fx:id="fundTreeTableColumnCode" minWidth="100" sortable="false"
+                                                    text="编码"/>
+                                <JFXTreeTableColumn fx:id="fundTreeTableColumnName" minWidth="200" sortable="false"
+                                                    text="名称"/>
 
-                                <JFXTreeTableColumn sortable="false" fx:id="fundTreeTableColumnType" minWidth="100" text="类型"/>
-                                <JFXTreeTableColumn sortable="false" fx:id="fundTreeTableColumnInvestType" minWidth="100" text="投资类型"/>
-                                <JFXTreeTableColumn sortable="false" fx:id="fundTreeTableColumnRisk" minWidth="100" text="风险等级"/>
+                                <JFXTreeTableColumn fx:id="fundTreeTableColumnType" minWidth="100" sortable="false"
+                                                    text="类型"/>
+                                <JFXTreeTableColumn fx:id="fundTreeTableColumnInvestType" minWidth="100"
+                                                    sortable="false" text="投资类型"/>
+                                <JFXTreeTableColumn fx:id="fundTreeTableColumnRisk" minWidth="100" sortable="false"
+                                                    text="风险等级"/>
 
-                                <JFXTreeTableColumn sortable="false" fx:id="fundTreeTableColumnSetup" minWidth="80" text="成立日期"/>
-                                <JFXTreeTableColumn sortable="false" fx:id="fundTreeTableColumnAsset" minWidth="100" text="资产规模(亿元)"/>
-                                <JFXTreeTableColumn sortable="false" fx:id="fundTreeTableColumnShare" minWidth="100" text="份额规模(亿份)"/>
+                                <JFXTreeTableColumn fx:id="fundTreeTableColumnSetup" minWidth="80" sortable="false"
+                                                    text="成立日期"/>
+                                <JFXTreeTableColumn fx:id="fundTreeTableColumnAsset" minWidth="100" sortable="false"
+                                                    text="资产规模(亿元)"/>
+                                <JFXTreeTableColumn fx:id="fundTreeTableColumnShare" minWidth="100" sortable="false"
+                                                    text="份额规模(亿份)"/>
 
-                                <JFXTreeTableColumn sortable="false" fx:id="fundTreeTableColumnCompany" minWidth="200" text="基金公司"/>
+                                <JFXTreeTableColumn fx:id="fundTreeTableColumnCompany" minWidth="200" sortable="false"
+                                                    text="基金公司"/>
 
-                                <JFXTreeTableColumn sortable="false" fx:id="columnOperation" maxWidth="Infinity" minWidth="200"
-                                                    text="操作"/>
+                                <JFXTreeTableColumn fx:id="columnOperation" maxWidth="Infinity" minWidth="200"
+                                                    sortable="false" text="操作"/>
                             </columns>
                         </JFXTreeTableView>
                         <HBox alignment="CENTER_RIGHT" spacing="10">
                             <padding>
-                                <Insets top="5" left="20" right="20" bottom="5"/>
+                                <Insets bottom="5" left="20" right="20" top="5"/>
                             </padding>
                             <children>
                                 <Label text="总条数:"/>
@@ -58,8 +121,8 @@
                                     </value>
                                 </JFXComboBox>
 
-                                <JFXButton fx:id="btnPrev" buttonType="RAISED"
-                                           style="-fx-background-color:WHITE;" text="上一页"/>
+                                <JFXButton fx:id="btnPrev" buttonType="RAISED" style="-fx-background-color:WHITE;"
+                                           text="上一页"/>
 
                                 <Label fx:id="pageNo" text="1"/>
 
@@ -69,8 +132,8 @@
 
                                 <Label text="页"/>
 
-                                <JFXButton fx:id="btnNext" buttonType="RAISED"
-                                           style="-fx-background-color:WHITE;" text="下一页"/>
+                                <JFXButton fx:id="btnNext" buttonType="RAISED" style="-fx-background-color:WHITE;"
+                                           text="下一页"/>
 
                             </children>
                         </HBox>

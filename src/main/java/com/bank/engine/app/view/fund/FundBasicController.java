@@ -13,6 +13,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,12 @@ public class FundBasicController extends AbstractFxView implements InitializingB
     private JFXTreeTableColumn<FundBasicModel, String> columnOperation;
 
     @FXML
+    private JFXTextField tf_fundCode, tf_fundName;
+
+    @FXML
+    private ToggleGroup fundTypeGroup;
+
+    @FXML
     private JFXSpinner spinnerInfo;
     @FXML
     private Label totalLabel, pageNo, totalPage;
@@ -84,6 +92,19 @@ public class FundBasicController extends AbstractFxView implements InitializingB
 
         this.btnPrev.setOnAction(action -> pageChange(1));
         this.btnNext.setOnAction(action -> pageChange(2));
+
+        this.fundTypeGroup.selectedToggleProperty().addListener((val, oldVal, newVal) -> DefaultThreadFactory.runLater(() -> search(1)));
+
+        this.tf_fundCode.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                DefaultThreadFactory.runLater(() -> search(1));
+            }
+        });
+        this.tf_fundName.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                DefaultThreadFactory.runLater(() -> search(1));
+            }
+        });
     }
 
     @Override
@@ -113,8 +134,14 @@ public class FundBasicController extends AbstractFxView implements InitializingB
         this.dummyData.clear();
 
         int psize = pageSize.getValue();
+        String fundCode = tf_fundCode.getText();
+        String fundName = tf_fundName.getText();
+        String fundType = null;
+        if (this.fundTypeGroup.getSelectedToggle() != null) {
+            fundType = (String) this.fundTypeGroup.getSelectedToggle().getUserData();
+        }
 
-        FundBasicPageModel pageModel = fundBusinessService.queryFundBasic(pn, psize);
+        FundBasicPageModel pageModel = fundBusinessService.queryFundBasic(fundCode, fundName, fundType, pn, psize);
 
         int totalCount = pageModel.getTotalRecords();
         int no = pageModel.getPageNo();

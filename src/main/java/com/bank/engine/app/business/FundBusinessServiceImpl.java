@@ -43,8 +43,20 @@ public class FundBusinessServiceImpl implements FundBusinessService {
     }
 
     @Override
-    public FundBasicPageModel queryFundBasic(Integer pageNo, Integer pageSize) {
+    public FundBasicPageModel queryFundBasic(String fundCode, String fundName,
+                                             String fundType,
+                                             Integer pageNo, Integer pageSize) {
         String url = baseUrl + "/v1/search?pageNo=" + pageNo + "&pageSize=" + pageSize;
+
+        if (StringUtils.isNotBlank(fundCode)) {
+            url += "&fundCode=" + fundCode;
+        }
+        if (StringUtils.isNotBlank(fundName)) {
+            url += "&fundName=" + fundName;
+        }
+        if (StringUtils.isNotBlank(fundType) && StringUtils.isNumeric(fundType)) {
+            url += "&fundType=" + fundType;
+        }
 
         FundBasicPageModel pageModel = httpClient.get(url, FundBasicPageModel.class);
         return pageModel;

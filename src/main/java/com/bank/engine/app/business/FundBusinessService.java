@@ -19,5 +19,7 @@ public interface FundBusinessService {
      *
      * @return
      */
-    FundBasicPageModel queryFundBasic(Integer pageNo, Integer pageSize);
+    FundBasicPageModel queryFundBasic(String fundCode, String fundName,
+                                      String fundType,
+                                      Integer pageNo, Integer pageSize);
 }
