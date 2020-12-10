@@ -20,7 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import lombok.extern.slf4j.Slf4j;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.springframework.beans.factory.InitializingBean;
@@ -164,6 +163,18 @@ public class FundRankController extends AbstractFxView implements InitializingBe
         this.btnRest.setOnAction(action -> {
             tf_fundCode.setText(null);
             tf_fundName.setText(null);
+
+            //todo 111
+            DefaultThreadFactory.runLater(() -> {
+                FundRankPageModel pageModel = fundBusinessService.queryFundRank(null, null, null, null, 1, 10000);
+                if (pageModel != null) {
+                    pageModel.getList().stream().forEach(model -> {
+                        String fundCode = model.getFundCode();
+                        fundBusinessService.syncFundAnalyse(fundCode, "2");
+                    });
+                }
+            });
+
         });
 
         this.tf_fundCode.setOnKeyPressed(keyEvent -> {
