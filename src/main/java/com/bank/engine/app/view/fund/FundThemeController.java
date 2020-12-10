@@ -4,6 +4,7 @@ import com.bank.engine.app.business.FundBusinessService;
 import com.bank.engine.app.config.AbstractFxView;
 import com.bank.engine.app.config.FXMLViewAndController;
 import com.bank.engine.app.model.FundThemeModel;
+import com.bank.engine.app.model.base.ResultModel;
 import com.bank.engine.app.model.page.FundThemeResultModel;
 import com.bank.engine.app.util.DefaultThreadFactory;
 import com.jfoenix.controls.*;
@@ -13,6 +14,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
@@ -25,6 +28,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 import static com.bank.engine.app.util.UiComponentUtil.createIconButton;
 import static com.bank.engine.app.util.UiComponentUtil.rateSetupCellFactory;
@@ -117,7 +122,9 @@ public class FundThemeController extends AbstractFxView implements InitializingB
                         info.setTooltip(new Tooltip("主题详情"));
                         info.setOnAction(action -> btnInfo(getTreeTableView().getTreeItem(getIndex()).getValue()));
 
-                        hBox.getChildren().addAll(info);
+                        JFXButton sync = createIconButton(FontAwesomeSolid.SYNC, 15, Color.GREEN);
+                        sync.setOnAction(action -> btnSync(getTreeTableView().getTreeItem(getIndex()).getValue()));
+                        hBox.getChildren().addAll(info, sync);
 
                         setGraphic(hBox);
                     }
@@ -170,5 +177,31 @@ public class FundThemeController extends AbstractFxView implements InitializingB
         FundThemeInfoController infoController = new FundThemeInfoController(model);
         capableBeanFactory.autowireBean(infoController);
         infoController.showView(Modality.WINDOW_MODAL);
+    }
+
+    private void btnSync(FundThemeModel model) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("同步数据提示");
+        alert.setHeaderText(null);
+        alert.setContentText("是否确认同步数据?");
+        String dataId = model.getDataId();
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            ResultModel resultModel = fundBusinessService.syncFundTheme(dataId);
+
+            Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
+            alertInfo.setTitle("提示");
+            alertInfo.setHeaderText(null);
+
+            if (resultModel.getCode() == 0) {
+                alertInfo.setContentText("已经提交后台同步，请稍后刷新页面！");
+                alertInfo.showAndWait();
+            } else {
+                alertInfo.setContentText("提交失败，请与管理人员联系!");
+                alertInfo.showAndWait();
+            }
+        }
     }
 }

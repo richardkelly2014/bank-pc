@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Cursor;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeTableColumn;
@@ -73,6 +74,7 @@ public class UiComponentUtil {
         JFXButton jfxButton = new JFXButton(null, FontIcon.of(icon));
         jfxButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
+        jfxButton.setCursor(Cursor.HAND);
         return jfxButton;
     }
 
@@ -80,6 +82,7 @@ public class UiComponentUtil {
         JFXButton jfxButton = new JFXButton(null, FontIcon.of(icon, iconSize, iconColor));
         jfxButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
+        jfxButton.setCursor(Cursor.HAND);
         return jfxButton;
     }
 

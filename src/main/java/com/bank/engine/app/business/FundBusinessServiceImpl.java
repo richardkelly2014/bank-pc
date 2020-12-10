@@ -4,6 +4,7 @@ import com.bank.engine.app.config.HttpClient;
 import com.bank.engine.app.model.base.ResultModel;
 import com.bank.engine.app.model.page.FundBasicPageModel;
 import com.bank.engine.app.model.page.FundRankPageModel;
+import com.bank.engine.app.model.page.FundThemeInfoResultModel;
 import com.bank.engine.app.model.page.FundThemeResultModel;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,16 @@ public class FundBusinessServiceImpl implements FundBusinessService {
     }
 
     @Override
+    public FundThemeInfoResultModel queryFundThemeInfo(String dataId) {
+        String url = baseUrl + "/theme/v1/searchInfo?dataId=" + dataId;
+        FundThemeInfoResultModel resultModel = httpClient.get(url, FundThemeInfoResultModel.class);
+        if (resultModel == null) {
+            resultModel = new FundThemeInfoResultModel();
+        }
+        return resultModel;
+    }
+
+    @Override
     public ResultModel syncFundAnalyse(String fundCode, String syncType) {
 
         String url = baseUrl + "/rank/v1/sync?fundCode=" + fundCode;
@@ -94,8 +105,21 @@ public class FundBusinessServiceImpl implements FundBusinessService {
     }
 
     @Override
+    public ResultModel syncFundTheme(String dataId) {
+        String url = baseUrl + "/theme/v1/sync?dataId=" + dataId;
+        return httpClient.get(url, ResultModel.class);
+    }
+
+    @Override
     public ResultModel addToAnalyse(String fundCode) {
         String url = baseUrl + "/v1/addToAnalyse?fundCode=" + fundCode;
+
+        return httpClient.get(url, ResultModel.class);
+    }
+
+    @Override
+    public ResultModel addToAnalyse(String fundCode, Integer type) {
+        String url = baseUrl + "/v1/addToAnalyse?fundCode=" + fundCode + "&type=" + type;
 
         return httpClient.get(url, ResultModel.class);
     }

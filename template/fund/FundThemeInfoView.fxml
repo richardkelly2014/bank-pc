@@ -2,6 +2,12 @@
 <?import javafx.scene.layout.StackPane?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import com.jfoenix.controls.JFXTreeTableColumn?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.control.Tooltip?>
+<?import com.jfoenix.controls.JFXNodesList?>
 <BorderPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
     <center>
         <StackPane>
@@ -25,6 +31,26 @@
 
                     </columns>
                 </JFXTreeTableView>
+                <JFXSpinner fx:id="spinnerInfo"
+                            styleClass="green-spinner" visible="false" StackPane.alignment="CENTER"
+                            startingAngle="0" radius="13"/>
+                <JFXNodesList stylesheets="@/css/jfoenix-components.css" rotate="180.0"
+                              spacing="15"
+                              StackPane.alignment="BOTTOM_RIGHT">
+                    <children>
+
+                        <JFXButton fx:id="btnRefresh" contentDisplay="GRAPHIC_ONLY"
+                                   styleClass="main-button">
+                            <graphic>
+                                <FontIcon iconLiteral="fas-sync" iconSize="20" styleClass="main-icon"/>
+                            </graphic>
+                        </JFXButton>
+
+                    </children>
+                    <StackPane.margin>
+                        <Insets bottom="50.0" right="50.0"/>
+                    </StackPane.margin>
+                </JFXNodesList>
             </children>
         </StackPane>
     </center>
