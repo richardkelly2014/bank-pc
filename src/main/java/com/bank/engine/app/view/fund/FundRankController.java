@@ -163,18 +163,6 @@ public class FundRankController extends AbstractFxView implements InitializingBe
         this.btnRest.setOnAction(action -> {
             tf_fundCode.setText(null);
             tf_fundName.setText(null);
-
-            //todo 111
-            DefaultThreadFactory.runLater(() -> {
-                FundRankPageModel pageModel = fundBusinessService.queryFundRank(null, null, null, null, 1, 10000);
-                if (pageModel != null) {
-                    pageModel.getList().stream().forEach(model -> {
-                        String fundCode = model.getFundCode();
-                        fundBusinessService.syncFundAnalyse(fundCode, "2");
-                    });
-                }
-            });
-
         });
 
         this.tf_fundCode.setOnKeyPressed(keyEvent -> {
