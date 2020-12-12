@@ -1,10 +1,7 @@
 package com.bank.engine.app.business;
 
 import com.bank.engine.app.model.base.ResultModel;
-import com.bank.engine.app.model.page.FundBasicPageModel;
-import com.bank.engine.app.model.page.FundRankPageModel;
-import com.bank.engine.app.model.page.FundThemeInfoResultModel;
-import com.bank.engine.app.model.page.FundThemeResultModel;
+import com.bank.engine.app.model.page.*;
 
 public interface FundBusinessService {
 
@@ -42,6 +39,26 @@ public interface FundBusinessService {
      * @return
      */
     FundThemeInfoResultModel queryFundThemeInfo(String dataId);
+
+    /**
+     * 查询 净值
+     *
+     * @param fundCode
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    FundRatePageModel queryFundRate(final String fundCode,
+                                    final Integer pageNo,
+                                    final Integer pageSize);
+
+    /**
+     * 查询基金基本信息
+     *
+     * @param fundCode
+     * @return
+     */
+    FundInfoResultModel queryFundInfo(final String fundCode);
 
     /**
      * 同步

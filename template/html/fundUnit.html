@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="echarts.min.js"></script>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div id="main" style="width: 100%;height:100%;"></div>
+
+<script>
+    const myChart = echarts.init(document.getElementById('main'), null, {renderer: 'svg'});
+    var apps;
+    const option = {
+        tooltip: {
+            trigger: 'axis',
+            position: function (pt) {
+                return [pt[0], '10%'];
+            }
+        },
+        title: {
+            left: 'center',
+            text: '单位净值走势',
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: []
+        },
+        yAxis: {
+            type: 'value',
+            boundaryGap: [0, '100%']
+        },
+        dataZoom: [{
+            type: 'inside',
+            start: 100,
+            end: 80
+        }, {
+            start: 100,
+            end: 80,
+            handleStyle: {
+                color: '#fff',
+                shadowBlur: 3,
+                shadowColor: 'rgba(0, 0, 0, 0.6)',
+                shadowOffsetX: 2,
+                shadowOffsetY: 2
+            }
+        }],
+        series: [
+            {
+                name: '单位净值',
+                type: 'line',
+                smooth: true,
+                symbol: 'none',
+                sampling: 'average',
+                itemStyle: {
+                    color: 'rgb(255, 70, 131)'
+                },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(255, 158, 68)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(255, 70, 131)'
+                    }])
+                },
+                data: []
+            }
+        ]
+    };
+
+    myChart.setOption(option);
+
+    var jsConnector = {
+        showResult: function (data) {
+            var jsonData =  JSON.parse(data);
+            myChart.setOption({
+                xAxis: {
+                    data: jsonData.category
+                },
+                series: [{
+                    // 根据名字对应到相应的系列
+                    data: jsonData.data
+                }]
+            });
+        }
+    };
+
+    function getJsConnector() {
+        return jsConnector;
+    };
+
+    window.addEventListener("resize", function () {
+        myChart.resize();
+    });
+
+</script>
+</body>
+</html>

@@ -2,10 +2,7 @@ package com.bank.engine.app.business;
 
 import com.bank.engine.app.config.HttpClient;
 import com.bank.engine.app.model.base.ResultModel;
-import com.bank.engine.app.model.page.FundBasicPageModel;
-import com.bank.engine.app.model.page.FundRankPageModel;
-import com.bank.engine.app.model.page.FundThemeInfoResultModel;
-import com.bank.engine.app.model.page.FundThemeResultModel;
+import com.bank.engine.app.model.page.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -88,6 +85,20 @@ public class FundBusinessServiceImpl implements FundBusinessService {
         if (resultModel == null) {
             resultModel = new FundThemeInfoResultModel();
         }
+        return resultModel;
+    }
+
+    @Override
+    public FundRatePageModel queryFundRate(String fundCode, Integer pageNo, Integer pageSize) {
+        String url = baseUrl + "/rate/v1/search?fundCode=" + fundCode + "&pageNo=" + pageNo + "&pageSize=" + pageSize;
+        FundRatePageModel pageModel = httpClient.get(url, FundRatePageModel.class);
+        return pageModel;
+    }
+
+    @Override
+    public FundInfoResultModel queryFundInfo(String fundCode) {
+        String url = baseUrl + "/v1/info?fundCode=" + fundCode;
+        FundInfoResultModel resultModel = httpClient.get(url, FundInfoResultModel.class);
         return resultModel;
     }
 
