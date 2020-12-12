@@ -8,6 +8,7 @@ import com.bank.engine.app.model.FundThemeModel;
 import com.bank.engine.app.model.base.ResultModel;
 import com.bank.engine.app.model.page.FundThemeInfoResultModel;
 import com.bank.engine.app.util.DefaultThreadFactory;
+import com.bank.engine.app.view.UiComponent;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
@@ -15,7 +16,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
@@ -37,6 +37,8 @@ public class FundThemeInfoController extends AbstractFxView {
 
     @Autowired
     private FundBusinessService fundBusinessService;
+    @Autowired
+    private UiComponent uiComponent;
 
     @FXML
     private JFXTreeTableView<FundThemeInfoModel> recordTable;
@@ -103,11 +105,15 @@ public class FundThemeInfoController extends AbstractFxView {
                         HBox hBox = new HBox(1);
                         hBox.setAlignment(Pos.TOP_CENTER);
 
+                        JFXButton info = createIconButton(FontAwesomeSolid.INFO, 15, Color.GREEN);
+                        info.setTooltip(new Tooltip("基金详情"));
+                        info.setOnAction(a -> fundInfo(getTreeTableView().getTreeItem(getIndex()).getValue()));
+
                         JFXButton add = createIconButton(FontAwesomeSolid.PLUS_SQUARE, 15, Color.GREEN);
                         add.setTooltip(new Tooltip("加入排行"));
                         add.setOnAction(action -> btnAddToAnalyse(getTreeTableView().getTreeItem(getIndex()).getValue()));
 
-                        hBox.getChildren().addAll(add);
+                        hBox.getChildren().addAll(info, add);
 
                         setGraphic(hBox);
                     }
@@ -132,6 +138,12 @@ public class FundThemeInfoController extends AbstractFxView {
 
         spinnerInfo.setVisible(false);
         recordTable.setDisable(false);
+    }
+
+    private void fundInfo(FundThemeInfoModel infoModel) {
+        String code = infoModel.getFundCode();
+        String fundName = infoModel.getFundName();
+        uiComponent.showFundInfo(code, fundName);
     }
 
     /**

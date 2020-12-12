@@ -7,6 +7,7 @@ import com.bank.engine.app.model.FundBasicModel;
 import com.bank.engine.app.model.base.ResultModel;
 import com.bank.engine.app.model.page.FundBasicPageModel;
 import com.bank.engine.app.util.DefaultThreadFactory;
+import com.bank.engine.app.view.UiComponent;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
@@ -19,10 +20,12 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import lombok.extern.slf4j.Slf4j;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 
 import static com.bank.engine.app.util.UiComponentUtil.createIconButton;
@@ -37,6 +40,8 @@ import static com.bank.engine.app.util.UiComponentUtil.setupCellValueFactory;
 public class FundBasicController extends AbstractFxView implements InitializingBean {
     @Autowired
     private FundBusinessService fundBusinessService;
+    @Autowired
+    private UiComponent uiComponent;
 
     @FXML
     private JFXTreeTableView<FundBasicModel> recordTable;
@@ -109,6 +114,7 @@ public class FundBasicController extends AbstractFxView implements InitializingB
 
                         JFXButton info = createIconButton(FontAwesomeSolid.INFO, 15, Color.GREEN);
                         info.setTooltip(new Tooltip("基金详情"));
+                        info.setOnAction(action -> fundInfo(getTreeTableView().getTreeItem(getIndex()).getValue()));
 
                         JFXButton add = createIconButton(FontAwesomeSolid.PLUS, 15, Color.GREEN);
                         add.setTooltip(new Tooltip("添加排行"));
@@ -195,6 +201,17 @@ public class FundBasicController extends AbstractFxView implements InitializingB
             totalPage.setText(String.valueOf(page));
             totalLabel.setText(String.valueOf(totalCount));
         });
+    }
+
+    /**
+     * 基金详情
+     *
+     * @param model
+     */
+    private void fundInfo(FundBasicModel model) {
+        String fundCode = model.getFundCode();
+        String fundName = model.getFundName();
+        uiComponent.showFundInfo(fundCode, fundName);
     }
 
     private void addToAnalyse(FundBasicModel model) {

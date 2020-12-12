@@ -7,6 +7,7 @@ import com.bank.engine.app.model.FundRankModel;
 import com.bank.engine.app.model.base.ResultModel;
 import com.bank.engine.app.model.page.FundRankPageModel;
 import com.bank.engine.app.util.DefaultThreadFactory;
+import com.bank.engine.app.view.UiComponent;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
@@ -20,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import lombok.extern.slf4j.Slf4j;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.springframework.beans.factory.InitializingBean;
@@ -39,6 +41,8 @@ public class FundRankController extends AbstractFxView implements InitializingBe
 
     @Autowired
     private FundBusinessService fundBusinessService;
+    @Autowired
+    private UiComponent uiComponent;
 
     @FXML
     private JFXTreeTableView<FundRankModel> recordRankTable;
@@ -129,6 +133,10 @@ public class FundRankController extends AbstractFxView implements InitializingBe
                         HBox hBox = new HBox(1);
                         hBox.setAlignment(Pos.TOP_CENTER);
 
+                        JFXButton info = createIconButton(FontAwesomeSolid.INFO, 15, Color.GREEN);
+                        info.setTooltip(new Tooltip("基金详情"));
+                        info.setOnAction(a -> fundInfo(getTreeTableView().getTreeItem(getIndex()).getValue()));
+
                         JFXButton sync = createIconButton(FontAwesomeSolid.SYNC, 15, Color.GREEN);
 
                         sync.setOnAction(action -> sync(getTreeTableView().getTreeItem(getIndex()).getValue(), "2"));
@@ -136,7 +144,7 @@ public class FundRankController extends AbstractFxView implements InitializingBe
                         JFXButton recy = createIconButton(FontAwesomeSolid.RECYCLE, 15, Color.BLUE);
                         recy.setOnAction(action -> sync(getTreeTableView().getTreeItem(getIndex()).getValue(), "1"));
 
-                        hBox.getChildren().addAll(sync, recy);
+                        hBox.getChildren().addAll(info, sync, recy);
                         setGraphic(hBox);
                     }
                 }
@@ -238,6 +246,12 @@ public class FundRankController extends AbstractFxView implements InitializingBe
         });
     }
 
+    private void fundInfo(FundRankModel model) {
+        String fundCode = model.getFundCode();
+        String fundName = model.getFundName();
+        uiComponent.showFundInfo(fundCode, fundName);
+    }
+
     /**
      * 同步
      *
@@ -264,7 +278,7 @@ public class FundRankController extends AbstractFxView implements InitializingBe
                 alertInfo.setContentText("已经提交后台同步，请稍后刷新页面！");
                 alertInfo.showAndWait();
             } else {
-                alertInfo.setContentText("提交失败，请与管理人员联系!");
+                alertInfo.setContentText(resultModel.getMsg());
                 alertInfo.showAndWait();
             }
         }

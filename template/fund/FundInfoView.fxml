@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTreeTableColumn?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.web.WebView?>
+<BorderPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <ScrollPane>
+            <content>
+                <VBox fx:id="vBoxContent">
+                    <padding>
+                        <Insets left="10.0" top="5.0"/>
+                    </padding>
+                    <!-- header -->
+                    <VBox>
+                        <HBox prefHeight="50" spacing="10">
+                            <Label style="-fx-font-size: 20px;" text="xxxxxxxx">
+                                <HBox.margin>
+                                    <Insets top="10.0"/>
+                                </HBox.margin>
+                            </Label>
+                            <Label text="000001">
+                                <HBox.margin>
+                                    <Insets top="18.0"/>
+                                </HBox.margin>
+                            </Label>
+
+                            <StackPane
+                                    style="-fx-background-radius: 15 15 15 15;-fx-background-color: #ffe3ec;-fx-pref-width: 80px;">
+                                <Label text="混合型"/>
+                                <HBox.margin>
+                                    <Insets bottom="10.0" top="10.0"/>
+                                </HBox.margin>
+                            </StackPane>
+
+                            <StackPane
+                                    style="-fx-background-radius: 15 15 15 15;-fx-background-color: #ffe3ec;-fx-pref-width: 80px;">
+                                <Label style="-fx-text-fill: red;" text="中风险"/>
+                                <HBox.margin>
+                                    <Insets bottom="10.0" top="10.0"/>
+                                </HBox.margin>
+                            </StackPane>
+                        </HBox>
+                        <Separator orientation="HORIZONTAL">
+                            <VBox.margin>
+                                <Insets bottom="5.0" top="5.0"/>
+                            </VBox.margin>
+                        </Separator>
+                        <HBox>
+                            <JFXTreeTableView prefHeight="300">
+                                <columns>
+                                    <JFXTreeTableColumn text="序号"/>
+                                    <JFXTreeTableColumn text="股票名称"/>
+                                    <JFXTreeTableColumn text="股票编码"/>
+                                    <JFXTreeTableColumn text="占净资产比"/>
+                                    <JFXTreeTableColumn text="市值/万元"/>
+                                </columns>
+                            </JFXTreeTableView>
+                            <Separator orientation="VERTICAL">
+                                <padding>
+                                    <Insets left="10.0" right="10.0"/>
+                                </padding>
+                            </Separator>
+                            <VBox HBox.hgrow="ALWAYS">
+                                <HBox spacing="50">
+                                    <VBox spacing="10">
+                                        <HBox spacing="10">
+                                            <Label text="单位净值"/>
+                                            <Label text="[2020-12-12]"/>
+                                        </HBox>
+                                        <HBox spacing="10">
+                                            <Label style="-fx-font-size: 20px" text="2.3051"/>
+                                            <Label text="-1.06%">
+                                                <HBox.margin>
+                                                    <Insets top="10.0"/>
+                                                </HBox.margin>
+                                            </Label>
+                                        </HBox>
+                                    </VBox>
+                                    <Separator orientation="VERTICAL"/>
+                                    <VBox spacing="10">
+                                        <HBox spacing="10">
+                                            <Label text="累计净值"/>
+                                            <Label text="[2020-12-12]"/>
+                                        </HBox>
+                                        <HBox spacing="10">
+                                            <Label style="-fx-font-size: 20px" text="2.3051"/>
+                                        </HBox>
+                                    </VBox>
+                                </HBox>
+                                <Separator orientation="HORIZONTAL">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0" top="5.0"/>
+                                    </VBox.margin>
+                                </Separator>
+                                <HBox spacing="50">
+                                    <VBox spacing="15">
+                                        <HBox spacing="10">
+                                            <Label text="近1月:"/>
+                                            <Label text="3.38%"/>
+                                        </HBox>
+                                        <HBox spacing="10">
+                                            <Label text="近1年:"/>
+                                            <Label text="3.38%"/>
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="15">
+                                        <HBox spacing="10">
+                                            <Label text="近3月:"/>
+                                            <Label text="3.38%"/>
+                                        </HBox>
+                                        <HBox spacing="10">
+                                            <Label text="近2年:"/>
+                                            <Label text="3.38%"/>
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="15">
+                                        <HBox spacing="10">
+                                            <Label text="近6月:"/>
+                                            <Label text="3.38%"/>
+                                        </HBox>
+                                        <HBox spacing="10">
+                                            <Label text="近3年:"/>
+                                            <Label text="3.38%"/>
+                                        </HBox>
+                                    </VBox>
+                                </HBox>
+                                <Separator orientation="HORIZONTAL">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" top="15.0"/>
+                                    </VBox.margin>
+                                </Separator>
+                                <HBox spacing="50">
+                                    <VBox spacing="5">
+                                        <HBox spacing="10">
+                                            <Label text="基金规模:"/>
+                                            <Label text="3.38%"/>
+                                        </HBox>
+                                        <HBox spacing="10">
+                                            <Label text="基金份额:"/>
+                                            <Label text="3.38%"/>
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="5">
+                                        <HBox spacing="10">
+                                            <Label text="发行时间:"/>
+                                            <Label text="3.38%"/>
+                                        </HBox>
+                                        <HBox spacing="10">
+                                            <Label text="成立时间:"/>
+                                            <Label text="3.38%"/>
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="5">
+                                        <HBox spacing="10">
+                                            <Label text="基金公司:"/>
+                                            <Label text="3.38%"/>
+                                        </HBox>
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    <Separator orientation="HORIZONTAL">
+                        <padding>
+                            <Insets top="10.0" bottom="10.0"/>
+                        </padding>
+                    </Separator>
+                    <!-- content -->
+                    <VBox VBox.vgrow="ALWAYS">
+                        <HBox VBox.vgrow="ALWAYS">
+                            <WebView HBox.hgrow="ALWAYS" />
+                            <Separator orientation="VERTICAL">
+                                <padding>
+                                    <Insets left="10.0" right="10.0"/>
+                                </padding>
+                            </Separator>
+                            <JFXTreeTableView prefWidth="330">
+                                <columns>
+                                    <JFXTreeTableColumn text="日期"/>
+                                    <JFXTreeTableColumn text="单位净值"/>
+                                    <JFXTreeTableColumn text="累计净值"/>
+                                    <JFXTreeTableColumn text="日增长率"/>
+                                </columns>
+                            </JFXTreeTableView>
+                            <Separator orientation="VERTICAL">
+                                <padding>
+                                    <Insets left="10.0" right="10.0"/>
+                                </padding>
+                            </Separator>
+                            <JFXTreeTableView prefWidth="330">
+                                <columns>
+                                    <JFXTreeTableColumn text="股票名称"/>
+                                    <JFXTreeTableColumn text="股票编码"/>
+                                    <JFXTreeTableColumn text="占净资产比"/>
+                                    <JFXTreeTableColumn text="市值/万元"/>
+                                </columns>
+                            </JFXTreeTableView>
+                        </HBox>
+                    </VBox>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>
