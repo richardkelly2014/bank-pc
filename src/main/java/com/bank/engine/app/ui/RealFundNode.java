@@ -86,7 +86,7 @@ public class RealFundNode<T> extends StackPane {
         //等待5s开始、
         mss.setDelay(Duration.seconds(5));
         //程序执行时间
-        mss.setPeriod(Duration.seconds(600));
+        mss.setPeriod(Duration.seconds(60));
         //启动失败重新启动
         mss.setRestartOnFailure(true);
         //程序启动失败后重新启动次数
@@ -101,7 +101,8 @@ public class RealFundNode<T> extends StackPane {
                     label.setText(strRate);
 
                     String color = getColor(rate);
-                    header.setBackground(new Background(new BackgroundFill(Color.valueOf(color), null, null)));
+                    header.setStyle("-fx-background-radius: 5 5 0 0; -fx-background-color: " + color);
+                    //header.setBackground(new Background(new BackgroundFill(Color.valueOf(color), null, null)));
                 }
             }
         });
