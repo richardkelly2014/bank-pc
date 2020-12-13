@@ -176,7 +176,7 @@
     </dependencies>
 
     <build>
-
+        <finalName>bankApp</finalName>
         <plugins>
 
             <plugin>
@@ -191,6 +191,9 @@
                 <configuration>
                     <vendor>app</vendor>
                     <mainClass>com.bank.engine.app.MainApplication</mainClass>
+                    <bundleArguments>
+                        <icon>${project.basedir}/src/main/resources/icons/icon.icns</icon>
+                    </bundleArguments>
                     <additionalAppResources>
                         ${project.basedir}/target/conf
                     </additionalAppResources>
