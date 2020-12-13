@@ -61,6 +61,21 @@ public interface FundBusinessService {
     FundInfoResultModel queryFundInfo(final String fundCode);
 
     /**
+     * 查询需要监控的基金
+     *
+     * @return
+     */
+    FundRealResultModel queryRealList();
+
+    /**
+     * 查询基金实时数据
+     *
+     * @param fundCode
+     * @return
+     */
+    FundRealSingleResultModel queryFundReal(String fundCode);
+
+    /**
      * 同步
      *
      * @param fundCode

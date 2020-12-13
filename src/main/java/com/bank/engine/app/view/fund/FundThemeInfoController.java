@@ -170,7 +170,7 @@ public class FundThemeInfoController extends AbstractFxView {
     }
 
     @Override
-    protected String getDefaultTitle() {
+    public String getDefaultTitle() {
 
         return super.getDefaultTitle() + "-----" + fundThemeModel.getThemeName();
     }

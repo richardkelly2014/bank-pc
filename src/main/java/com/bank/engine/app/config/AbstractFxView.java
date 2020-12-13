@@ -140,7 +140,7 @@ public abstract class AbstractFxView implements Initializable {
         return parent;
     }
 
-    protected String getDefaultTitle() {
+    public String getDefaultTitle() {
 
         return annotation.title();
     }

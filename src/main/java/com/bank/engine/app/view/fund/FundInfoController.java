@@ -187,7 +187,7 @@ public class FundInfoController extends AbstractFxView {
     }
 
     @Override
-    protected String getDefaultTitle() {
+    public String getDefaultTitle() {
 
         return super.getDefaultTitle() + "---" + fundName + "(" + fundCode + ")";
     }

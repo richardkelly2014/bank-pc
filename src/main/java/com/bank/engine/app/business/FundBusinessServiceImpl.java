@@ -103,6 +103,20 @@ public class FundBusinessServiceImpl implements FundBusinessService {
     }
 
     @Override
+    public FundRealResultModel queryRealList() {
+        String url = baseUrl + "/v1/realList";
+        FundRealResultModel realResultModel = httpClient.get(url, FundRealResultModel.class);
+        return realResultModel;
+    }
+
+    @Override
+    public FundRealSingleResultModel queryFundReal(String fundCode) {
+        String url = baseUrl + "/rank/v1/real?fundCode=" + fundCode;
+        FundRealSingleResultModel realResultModel = httpClient.get(url, FundRealSingleResultModel.class);
+        return realResultModel;
+    }
+
+    @Override
     public ResultModel syncFundAnalyse(String fundCode, String syncType) {
 
         String url = baseUrl + "/rank/v1/sync?fundCode=" + fundCode;
