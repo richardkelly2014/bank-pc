@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.web.WebView?>
+<?import com.jfoenix.controls.JFXButton?>
 <BorderPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
     <center>
         <ScrollPane>
@@ -22,37 +23,44 @@
                     </padding>
                     <!-- header -->
                     <VBox>
-                        <HBox prefHeight="50" spacing="10">
-                            <Label fx:id="lblFundName" style="-fx-font-size: 20px;" text="xxxxxxxx">
-                                <HBox.margin>
-                                    <Insets top="10.0"/>
-                                </HBox.margin>
-                            </Label>
-                            <Label fx:id="lblFundCode" text="000001">
-                                <HBox.margin>
-                                    <Insets top="18.0"/>
-                                </HBox.margin>
-                            </Label>
+                        <HBox>
+                            <HBox prefHeight="50" spacing="10">
+                                <Label fx:id="lblFundName" style="-fx-font-size: 20px;" text="xxxxxxxx">
+                                    <HBox.margin>
+                                        <Insets top="10.0"/>
+                                    </HBox.margin>
+                                </Label>
+                                <Label fx:id="lblFundCode" text="000001">
+                                    <HBox.margin>
+                                        <Insets top="18.0"/>
+                                    </HBox.margin>
+                                </Label>
 
-                            <StackPane
-                                    style="-fx-background-radius: 15 15 15 15;-fx-background-color: #ffe3ec;">
-                                <padding>
-                                    <Insets left="8" right="8"/>
-                                </padding>
-                                <Label fx:id="lblFundTypeName" text="混合型"/>
-                                <HBox.margin>
-                                    <Insets bottom="10.0" top="10.0"/>
-                                </HBox.margin>
-                            </StackPane>
+                                <StackPane
+                                        style="-fx-background-radius: 15 15 15 15;-fx-background-color: #ffe3ec;">
+                                    <padding>
+                                        <Insets left="8" right="8"/>
+                                    </padding>
+                                    <Label fx:id="lblFundTypeName" text="混合型"/>
+                                    <HBox.margin>
+                                        <Insets bottom="10.0" top="10.0"/>
+                                    </HBox.margin>
+                                </StackPane>
 
-                            <StackPane
-                                    style="-fx-background-radius: 15 15 15 15;-fx-background-color: #ffe3ec;-fx-pref-width: 80px;">
-                                <Label fx:id="lblFundRiskName" style="-fx-text-fill: red;" text="中风险"/>
-                                <HBox.margin>
-                                    <Insets bottom="10.0" top="10.0"/>
-                                </HBox.margin>
-                            </StackPane>
+                                <StackPane
+                                        style="-fx-background-radius: 15 15 15 15;-fx-background-color: #ffe3ec;-fx-pref-width: 80px;">
+                                    <Label fx:id="lblFundRiskName" style="-fx-text-fill: red;" text="中风险"/>
+                                    <HBox.margin>
+                                        <Insets bottom="10.0" top="10.0"/>
+                                    </HBox.margin>
+                                </StackPane>
+                            </HBox>
+                            <HBox HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT">
+                                <JFXButton fx:id="btnSyncStock" text="同步持仓" buttonType="RAISED"
+                                           style="-fx-text-fill:WHITE;-fx-background-color:#79ae56;-fx-font-size:14px;"/>
+                            </HBox>
                         </HBox>
+
                         <Separator orientation="HORIZONTAL">
                             <VBox.margin>
                                 <Insets bottom="5.0" top="5.0"/>
@@ -181,7 +189,7 @@
                     <!-- content -->
                     <VBox VBox.vgrow="ALWAYS">
                         <HBox VBox.vgrow="ALWAYS">
-                            <WebView fx:id="unitWebView" HBox.hgrow="ALWAYS" />
+                            <WebView fx:id="unitWebView" HBox.hgrow="ALWAYS"/>
                             <Separator orientation="VERTICAL">
                                 <padding>
                                     <Insets left="10.0" right="10.0"/>

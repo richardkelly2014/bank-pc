@@ -8,6 +8,8 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
 <BorderPane fx:id="mainPane"
             xmlns="http://javafx.com/javafx/8.0.112"
             xmlns:fx="http://javafx.com/fxml/1">
@@ -75,5 +77,14 @@
 
         </JFXDrawer>
     </center>
+
+    <bottom>
+        <HBox>
+            <HBox></HBox>
+            <HBox HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT">
+                <Label fx:id="lblStatus" text="111"/>
+            </HBox>
+        </HBox>
+    </bottom>
 
 </BorderPane>

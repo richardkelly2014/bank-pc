@@ -62,6 +62,9 @@ public class FundBusinessServiceImpl implements FundBusinessService {
         }
 
         FundBasicPageModel pageModel = httpClient.get(url, FundBasicPageModel.class);
+        if (pageModel == null) {
+            pageModel = new FundBasicPageModel();
+        }
         return pageModel;
     }
 
@@ -75,6 +78,9 @@ public class FundBusinessServiceImpl implements FundBusinessService {
             url += "&dataField=" + dataField;
         }
         FundThemeResultModel resultModel = httpClient.get(url, FundThemeResultModel.class);
+        if (resultModel == null) {
+            resultModel = new FundThemeResultModel();
+        }
         return resultModel;
     }
 
@@ -145,6 +151,14 @@ public class FundBusinessServiceImpl implements FundBusinessService {
     @Override
     public ResultModel addToAnalyse(String fundCode, Integer type) {
         String url = baseUrl + "/v1/addToAnalyse?fundCode=" + fundCode + "&type=" + type;
+
+        return httpClient.get(url, ResultModel.class);
+    }
+
+    @Override
+    public ResultModel syncFundStock(String fundCode, String fundName) {
+
+        String url = baseUrl + "/v1/syncStock?fundCode=" + fundCode + "&fundName=" + fundName;
 
         return httpClient.get(url, ResultModel.class);
     }

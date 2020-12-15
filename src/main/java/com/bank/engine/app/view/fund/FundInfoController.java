@@ -13,6 +13,7 @@ import com.bank.engine.app.model.page.FundRatePageModel;
 import com.bank.engine.app.util.DefaultThreadFactory;
 import com.bank.engine.app.util.FileUtil;
 import com.google.common.collect.Lists;
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -58,6 +59,8 @@ public class FundInfoController extends AbstractFxView {
     private Label lblMonth, lblYear, lblMonth3, lblYear2, lblMonth6, lblYear3;
     @FXML
     private Label lblasset, lblshare, lblissue, lblsetup, lblcompany;
+    @FXML
+    private JFXButton btnSyncStock;
 
     /**
      * 用于与Javascript引擎通信。
@@ -90,6 +93,12 @@ public class FundInfoController extends AbstractFxView {
             webEngine.load(url.toExternalForm());
         }
         DefaultThreadFactory.runLater(this::showInfoBase);
+
+        this.btnSyncStock.setOnAction(action -> {
+            DefaultThreadFactory.runLater(() -> {
+                fundBusinessService.syncFundStock(fundCode, fundName);
+            });
+        });
     }
 
     private void showInfoBase() {

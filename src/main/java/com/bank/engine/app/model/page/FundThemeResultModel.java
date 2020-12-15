@@ -2,6 +2,7 @@ package com.bank.engine.app.model.page;
 
 import com.bank.engine.app.model.FundThemeModel;
 import com.bank.engine.app.model.base.ResultModel;
+import com.google.common.collect.Lists;
 import lombok.Data;
 
 import java.util.List;
@@ -11,5 +12,5 @@ import java.util.List;
  */
 @Data
 public class FundThemeResultModel extends ResultModel {
-    private List<FundThemeModel> data;
+    private List<FundThemeModel> data = Lists.newArrayList();
 }

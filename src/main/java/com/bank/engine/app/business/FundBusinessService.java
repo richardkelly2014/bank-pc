@@ -108,4 +108,13 @@ public interface FundBusinessService {
      * @return
      */
     ResultModel addToAnalyse(String fundCode, Integer type);
+
+    /**
+     * 同步基金持仓
+     *
+     * @param fundCode
+     * @param fundName
+     * @return
+     */
+    ResultModel syncFundStock(String fundCode, String fundName);
 }

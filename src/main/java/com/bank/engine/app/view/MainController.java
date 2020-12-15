@@ -14,6 +14,7 @@ import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +42,8 @@ public class MainController extends AbstractFxView {
     private JFXButton btnFundRank, btnFundTheme, btnFundMark, btnFundMonitor;
     @FXML
     private JFXDrawer drawer;
+    @FXML
+    private Label lblStatus;
 
     @Override
     public void initialize() {
@@ -86,12 +89,6 @@ public class MainController extends AbstractFxView {
     }
 
     public void showNetWarn() {
-        Platform.runLater(() -> {
-            Alert alertInfo = new Alert(Alert.AlertType.WARNING);
-            alertInfo.setTitle("提示");
-            alertInfo.setHeaderText(null);
-            alertInfo.setContentText("当前网络有误,请联系管理员！");
-            alertInfo.show();
-        });
+        Platform.runLater(() -> this.lblStatus.setText("当前网络有误,请联系管理员！"));
     }
 }
