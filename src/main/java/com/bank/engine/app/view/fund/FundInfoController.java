@@ -8,15 +8,24 @@ import com.bank.engine.app.config.FXMLViewAndController;
 import com.bank.engine.app.model.FundBasicModel;
 import com.bank.engine.app.model.FundRankModel;
 import com.bank.engine.app.model.FundRateModel;
+import com.bank.engine.app.model.FundStockModel;
 import com.bank.engine.app.model.page.FundInfoResultModel;
 import com.bank.engine.app.model.page.FundRatePageModel;
+import com.bank.engine.app.model.page.FundStockResultModel;
+import com.bank.engine.app.util.DateTimeUtil;
 import com.bank.engine.app.util.DefaultThreadFactory;
 import com.bank.engine.app.util.FileUtil;
 import com.google.common.collect.Lists;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTreeTableColumn;
+import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -30,9 +39,13 @@ import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+
+import static com.bank.engine.app.util.UiComponentUtil.setupCellValueFactory;
 
 /**
  * Created by jiangfei on 2020/12/12.
@@ -61,6 +74,14 @@ public class FundInfoController extends AbstractFxView {
     private Label lblasset, lblshare, lblissue, lblsetup, lblcompany;
     @FXML
     private JFXButton btnSyncStock;
+    @FXML
+    private JFXTreeTableView<FundStockModel> jfxFundStock, jfxtbv1;
+    @FXML
+    private JFXTreeTableColumn<FundStockModel, String> jfxtc1, jfxtc2, jfxtc3, jfxtc4, jfxtc11, jfxtc12, jfxtc13, jfxtc14;
+
+
+    private ObservableList<FundStockModel> dummyData1 = FXCollections.observableArrayList();
+    private ObservableList<FundStockModel> dummyData2 = FXCollections.observableArrayList();
 
     /**
      * 用于与Javascript引擎通信。
@@ -76,6 +97,22 @@ public class FundInfoController extends AbstractFxView {
     public void initialize() {
         vBoxContent.prefWidthProperty().bind(mainPane.widthProperty().subtract(30));
 
+        setupCellValueFactory(jfxtc1, FundStockModel::stockNameProperty);
+        setupCellValueFactory(jfxtc2, FundStockModel::stockCodeProperty);
+        setupCellValueFactory(jfxtc3, FundStockModel::holdRatioProperty);
+        setupCellValueFactory(jfxtc4, FundStockModel::holdValueProperty);
+
+        setupCellValueFactory(jfxtc11, FundStockModel::stockNameProperty);
+        setupCellValueFactory(jfxtc12, FundStockModel::stockCodeProperty);
+        setupCellValueFactory(jfxtc13, FundStockModel::holdRatioProperty);
+        setupCellValueFactory(jfxtc14, FundStockModel::holdValueProperty);
+
+        this.jfxFundStock.setRoot(new RecursiveTreeItem<>(dummyData1, RecursiveTreeObject::getChildren));
+        this.jfxFundStock.setShowRoot(false);
+
+        this.jfxtbv1.setRoot(new RecursiveTreeItem<>(dummyData2, RecursiveTreeObject::getChildren));
+        this.jfxtbv1.setShowRoot(false);
+
         WebEngine webEngine = this.unitWebView.getEngine();
         webEngine.setJavaScriptEnabled(true);
 
@@ -84,15 +121,18 @@ public class FundInfoController extends AbstractFxView {
             if (newValue == Worker.State.SUCCEEDED) {
                 // 获取Javascript连接器对象。
                 javascriptConnector = (JSObject) webEngine.executeScript("getJsConnector()");
-                //javascriptConnector.setMember("apps", this);
                 DefaultThreadFactory.runLater(this::showEchart);
             }
         });
+
         URL url = FileUtil.createURL("template/html/fundUnit.html");
         if (url != null) {
             webEngine.load(url.toExternalForm());
         }
+
         DefaultThreadFactory.runLater(this::showInfoBase);
+
+        DefaultThreadFactory.runLater(this::showFundStock);
 
         this.btnSyncStock.setOnAction(action -> {
             DefaultThreadFactory.runLater(() -> {
@@ -101,6 +141,9 @@ public class FundInfoController extends AbstractFxView {
         });
     }
 
+    /**
+     * 查询基本信息
+     */
     private void showInfoBase() {
         FundInfoResultModel resultModel = fundBusinessService.queryFundInfo(fundCode);
         FundBasicModel basicModel = resultModel.getData().getBasic();
@@ -168,6 +211,31 @@ public class FundInfoController extends AbstractFxView {
         }
     }
 
+    /**
+     * 查询基金持仓
+     */
+    private void showFundStock() {
+        int quarter = DateTimeUtil.getQuarter();
+        int year = DateTimeUtil.getYear();
+
+        FundStockResultModel resultModel = fundBusinessService.queryFundStock(fundCode, year);
+
+        List<FundStockModel> list = resultModel.getData();
+
+        dummyData2.addAll(list);
+
+        final int fq = quarter;
+        List<FundStockModel> quarterList = list.stream().filter(model -> model.getQuarter() == fq).collect(Collectors.toList());
+        if (quarterList.size() == 0) {
+            quarter = quarter - 1;
+            final int fq1 = quarter;
+            quarterList = list.stream().filter(model -> model.getQuarter() == fq1).collect(Collectors.toList());
+        }
+
+        dummyData1.addAll(quarterList);
+
+    }
+
     private void showEchart() {
 
         FundRatePageModel pageModel = fundBusinessService.queryFundRate(fundCode, 1, 900);
@@ -189,10 +257,6 @@ public class FundInfoController extends AbstractFxView {
         map.put("category", days);
         map.put("data", rates);
         Platform.runLater(() -> javascriptConnector.call("showResult", JSON.toJSONString(map)));
-    }
-
-    public void queryData() {
-        log.info("{}", 111);
     }
 
     @Override

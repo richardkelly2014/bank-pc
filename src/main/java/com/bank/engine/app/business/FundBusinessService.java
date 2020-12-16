@@ -76,6 +76,14 @@ public interface FundBusinessService {
     FundRealSingleResultModel queryFundReal(String fundCode);
 
     /**
+     * 查询基金持仓
+     *
+     * @param fundCode
+     * @return
+     */
+    FundStockResultModel queryFundStock(String fundCode, Integer year);
+
+    /**
      * 同步
      *
      * @param fundCode

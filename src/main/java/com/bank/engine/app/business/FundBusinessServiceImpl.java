@@ -123,6 +123,16 @@ public class FundBusinessServiceImpl implements FundBusinessService {
     }
 
     @Override
+    public FundStockResultModel queryFundStock(String fundCode, Integer year) {
+        String url = baseUrl + "/stock/v1/search?fundCode=" + fundCode + "&year=" + year;
+        FundStockResultModel resultModel = httpClient.get(url, FundStockResultModel.class);
+        if (resultModel == null) {
+            resultModel = new FundStockResultModel();
+        }
+        return resultModel;
+    }
+
+    @Override
     public ResultModel syncFundAnalyse(String fundCode, String syncType) {
 
         String url = baseUrl + "/rank/v1/sync?fundCode=" + fundCode;

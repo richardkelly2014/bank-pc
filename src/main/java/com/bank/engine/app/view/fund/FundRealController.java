@@ -7,6 +7,7 @@ import com.bank.engine.app.model.FundRealModel;
 import com.bank.engine.app.model.page.FundRealResultModel;
 import com.bank.engine.app.ui.RealFundNode;
 import com.bank.engine.app.util.DefaultThreadFactory;
+import com.bank.engine.app.view.UiComponent;
 import com.google.common.collect.Lists;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -21,6 +22,7 @@ import javafx.util.Duration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -34,8 +36,11 @@ import java.util.concurrent.ConcurrentMap;
 @Component
 @FXMLViewAndController(value = "template/fund/FundRealView.fxml", title = "实时监控")
 public class FundRealController extends AbstractFxView implements InitializingBean {
+
     @Autowired
     private FundBusinessService fundBusinessService;
+    @Autowired
+    private UiComponent uiComponent;
 
     @FXML
     private FlowPane realPane;
@@ -75,8 +80,10 @@ public class FundRealController extends AbstractFxView implements InitializingBe
     }
 
     private void realClick(FundRealModel model) {
+        String code = model.getFundCode();
+        String name = model.getFundName();
 
-        log.info("{}", model);
+        uiComponent.showFundInfo(code, name);
     }
 
     @Override
