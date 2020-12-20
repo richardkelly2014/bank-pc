@@ -2,7 +2,7 @@ package com.bank.engine.app;
 
 import com.bank.engine.app.config.AbstractFxApplication;
 import com.bank.engine.app.util.DefaultThreadFactory;
-import com.bank.engine.app.view.MainController;
+import com.bank.engine.app.view.AppController;
 import com.jfoenix.svg.SVGGlyphLoader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,6 +30,6 @@ public class MainApplication extends AbstractFxApplication {
 
         java.awt.Toolkit.getDefaultToolkit();
 
-        run(MainApplication.class, args, MainController.class);
+        run(MainApplication.class, args, AppController.class);
     }
 }

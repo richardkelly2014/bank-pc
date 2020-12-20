@@ -21,10 +21,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@FXMLViewAndController(value = "template/MainView.fxml", title = "钱包")
+@FXMLViewAndController(value = "template/FundMainView.fxml", title = "基金")
 @Component
 @Slf4j
-public class MainController extends AbstractFxView {
+public class FundMainController extends AbstractFxView {
 
     @Autowired
     private FundRankController fundRankController;
@@ -42,8 +42,6 @@ public class MainController extends AbstractFxView {
     private JFXButton btnFundRank, btnFundTheme, btnFundMark, btnFundMonitor;
     @FXML
     private JFXDrawer drawer;
-    @FXML
-    private Label lblStatus;
 
     @Override
     public void initialize() {
@@ -86,9 +84,5 @@ public class MainController extends AbstractFxView {
         });
 
         DefaultThreadFactory.runLater(task);
-    }
-
-    public void showNetWarn() {
-        Platform.runLater(() -> this.lblStatus.setText("当前网络有误,请联系管理员！"));
     }
 }

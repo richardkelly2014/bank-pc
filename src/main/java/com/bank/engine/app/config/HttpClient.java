@@ -1,6 +1,5 @@
 package com.bank.engine.app.config;
 
-import com.bank.engine.app.view.MainController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,9 +13,6 @@ public class HttpClient {
 
     @Autowired
     private RestTemplate restTemplate;
-
-    @Autowired
-    private MainController mainController;
 
     /**
      * get
@@ -39,7 +35,7 @@ public class HttpClient {
                 return null;
             }
         } catch (Exception e) {
-            mainController.showNetWarn();
+            log.error("{}", e);
             return null;
         }
     }

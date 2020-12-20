@@ -111,6 +111,7 @@ public class RealFundNode<T> extends StackPane {
     }
 
     public void dispose() {
+
         mss.cancel();
     }
 
