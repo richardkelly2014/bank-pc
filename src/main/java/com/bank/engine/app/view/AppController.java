@@ -17,14 +17,16 @@ public class AppController extends AbstractFxView {
 
     @Autowired
     private FundMainController fundMainController;
+    @Autowired
+    private StockMainController stockMainController;
 
     @FXML
     private JFXButton btnFund, btnStock;
 
     @Override
     public void initialize() {
-        btnFund.setOnAction(action -> {
-            fundMainController.showView(Modality.WINDOW_MODAL);
-        });
+        btnFund.setOnAction(action -> fundMainController.showView(Modality.WINDOW_MODAL));
+
+        btnStock.setOnAction(action -> stockMainController.showView(Modality.WINDOW_MODAL));
     }
 }

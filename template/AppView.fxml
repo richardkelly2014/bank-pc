@@ -16,7 +16,7 @@
             <VBox alignment="CENTER">
                 <JFXButton fx:id="btnFund" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY">
                     <graphic>
-                        <FontIcon iconLiteral="fab-bitbucket" iconSize="30" iconColor="seagreen"/>
+                        <FontIcon iconLiteral="fab-bitbucket" iconSize="40" iconColor="seagreen"/>
                     </graphic>
                 </JFXButton>
                 <Label text="基金"/>
@@ -25,7 +25,7 @@
             <VBox alignment="CENTER">
                 <JFXButton fx:id="btnStock" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY">
                     <graphic>
-                        <FontIcon iconLiteral="fab-cc-visa" iconSize="30" iconColor="seagreen"/>
+                        <FontIcon iconLiteral="fab-cc-visa" iconSize="40" iconColor="seagreen"/>
                     </graphic>
                 </JFXButton>
                 <Label text="股票"/>

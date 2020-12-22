@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTreeTableColumn?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
@@ -9,14 +10,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.web.WebView?>
-<?import com.jfoenix.controls.JFXButton?>
-<BorderPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
+
+<BorderPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <center>
         <VBox fx:id="vBoxContent">
             <padding>
-                <Insets left="10.0" top="5.0"/>
+                <Insets left="10.0" top="5.0" />
             </padding>
             <!-- header -->
             <VBox>
@@ -24,153 +24,150 @@
                     <HBox prefHeight="50" spacing="10">
                         <Label fx:id="lblFundName" style="-fx-font-size: 20px;" text="xxxxxxxx">
                             <HBox.margin>
-                                <Insets top="10.0"/>
+                                <Insets top="10.0" />
                             </HBox.margin>
                         </Label>
                         <Label fx:id="lblFundCode" text="000001">
                             <HBox.margin>
-                                <Insets top="18.0"/>
+                                <Insets top="18.0" />
                             </HBox.margin>
                         </Label>
 
-                        <StackPane
-                                style="-fx-background-radius: 15 15 15 15;-fx-background-color: #ffe3ec;">
+                        <StackPane style="-fx-background-radius: 15 15 15 15;-fx-background-color: #ffe3ec;">
                             <padding>
-                                <Insets left="8" right="8"/>
+                                <Insets left="8" right="8" />
                             </padding>
-                            <Label fx:id="lblFundTypeName" text="混合型"/>
+                            <Label fx:id="lblFundTypeName" text="混合型" />
                             <HBox.margin>
-                                <Insets bottom="10.0" top="10.0"/>
+                                <Insets bottom="10.0" top="10.0" />
                             </HBox.margin>
                         </StackPane>
 
-                        <StackPane
-                                style="-fx-background-radius: 15 15 15 15;-fx-background-color: #ffe3ec;-fx-pref-width: 80px;">
-                            <Label fx:id="lblFundRiskName" style="-fx-text-fill: red;" text="中风险"/>
+                        <StackPane style="-fx-background-radius: 15 15 15 15;-fx-background-color: #ffe3ec;-fx-pref-width: 80px;">
+                            <Label fx:id="lblFundRiskName" style="-fx-text-fill: red;" text="中风险" />
                             <HBox.margin>
-                                <Insets bottom="10.0" top="10.0"/>
+                                <Insets bottom="10.0" top="10.0" />
                             </HBox.margin>
                         </StackPane>
                     </HBox>
-                    <HBox HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT">
-                        <JFXButton fx:id="btnSyncStock" text="同步持仓" buttonType="RAISED"
-                                   style="-fx-text-fill:WHITE;-fx-background-color:#79ae56;-fx-font-size:14px;"/>
+                    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                        <JFXButton fx:id="btnSyncStock" buttonType="RAISED" style="-fx-text-fill:WHITE;-fx-background-color:#79ae56;-fx-font-size:14px;" text="同步持仓" />
                     </HBox>
                 </HBox>
 
                 <Separator orientation="HORIZONTAL">
                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0"/>
+                        <Insets bottom="5.0" top="5.0" />
                     </VBox.margin>
                 </Separator>
                 <HBox>
-                    <JFXTreeTableView fx:id="jfxFundStock" prefHeight="350">
+                    <JFXTreeTableView fx:id="jfxFundStock" prefHeight="400" prefWidth="350.0">
                         <columns>
-                            <JFXTreeTableColumn fx:id="jfxtc1" text="股票名称"/>
-                            <JFXTreeTableColumn fx:id="jfxtc2" text="股票编码"/>
-                            <JFXTreeTableColumn fx:id="jfxtc3" text="占净资产比"/>
-                            <JFXTreeTableColumn fx:id="jfxtc4" text="市值/万元"/>
+                            <JFXTreeTableColumn fx:id="jfxtc1" text="股票名称" />
+                            <JFXTreeTableColumn fx:id="jfxtc2" text="股票编码" />
+                            <JFXTreeTableColumn fx:id="jfxtc3" text="占净资产比" />
+                            <JFXTreeTableColumn fx:id="jfxtc4" text="市值/万元" />
                         </columns>
                     </JFXTreeTableView>
                     <Separator orientation="VERTICAL">
                         <padding>
-                            <Insets left="10.0" right="10.0"/>
+                            <Insets left="10.0" right="10.0" />
                         </padding>
                     </Separator>
                     <VBox HBox.hgrow="ALWAYS">
                         <HBox spacing="50">
                             <VBox spacing="10">
                                 <HBox spacing="10">
-                                    <Label text="单位净值"/>
-                                    <Label fx:id="lblUnitDay" text="[2020-12-12]"/>
+                                    <Label text="单位净值" />
+                                    <Label fx:id="lblUnitDay" text="[2020-12-12]" />
                                 </HBox>
                                 <HBox spacing="10">
-                                    <Label style="-fx-font-size: 20px" fx:id="lblUnitValue" text="2.3051"/>
+                                    <Label fx:id="lblUnitValue" style="-fx-font-size: 20px" text="2.3051" />
                                     <Label fx:id="lblZF" text="-1.06%">
                                         <HBox.margin>
-                                            <Insets top="10.0"/>
+                                            <Insets top="10.0" />
                                         </HBox.margin>
                                     </Label>
                                 </HBox>
                             </VBox>
-                            <Separator orientation="VERTICAL"/>
+                            <Separator orientation="VERTICAL" />
                             <VBox spacing="10">
                                 <HBox spacing="10">
-                                    <Label text="累计净值"/>
-                                    <Label text=""/>
+                                    <Label text="累计净值" />
+                                    <Label text="" />
                                 </HBox>
                                 <HBox spacing="10">
-                                    <Label fx:id="lblGrandValue" style="-fx-font-size: 20px" text="2.3051"/>
-                                </HBox>
-                            </VBox>
-                        </HBox>
-                        <Separator orientation="HORIZONTAL">
-                            <VBox.margin>
-                                <Insets bottom="5.0" top="5.0"/>
-                            </VBox.margin>
-                        </Separator>
-                        <HBox spacing="50">
-                            <VBox spacing="15">
-                                <HBox spacing="10">
-                                    <Label text="近1月:"/>
-                                    <Label fx:id="lblMonth" text="3.38%"/>
-                                </HBox>
-                                <HBox spacing="10">
-                                    <Label text="近1年:"/>
-                                    <Label fx:id="lblYear" text="3.38%"/>
-                                </HBox>
-                            </VBox>
-                            <VBox spacing="15">
-                                <HBox spacing="10">
-                                    <Label text="近3月:"/>
-                                    <Label fx:id="lblMonth3" text="3.38%"/>
-                                </HBox>
-                                <HBox spacing="10">
-                                    <Label text="近2年:"/>
-                                    <Label fx:id="lblYear2" text="3.38%"/>
-                                </HBox>
-                            </VBox>
-                            <VBox spacing="15">
-                                <HBox spacing="10">
-                                    <Label text="近6月:"/>
-                                    <Label fx:id="lblMonth6" text="3.38%"/>
-                                </HBox>
-                                <HBox spacing="10">
-                                    <Label text="近3年:"/>
-                                    <Label fx:id="lblYear3" text="3.38%"/>
+                                    <Label fx:id="lblGrandValue" style="-fx-font-size: 20px" text="2.3051" />
                                 </HBox>
                             </VBox>
                         </HBox>
                         <Separator orientation="HORIZONTAL">
                             <VBox.margin>
-                                <Insets bottom="15.0" top="15.0"/>
+                                <Insets bottom="5.0" top="5.0" />
+                            </VBox.margin>
+                        </Separator>
+                        <HBox spacing="50">
+                            <VBox spacing="15">
+                                <HBox spacing="10">
+                                    <Label text="近1月:" />
+                                    <Label fx:id="lblMonth" text="3.38%" />
+                                </HBox>
+                                <HBox spacing="10">
+                                    <Label text="近1年:" />
+                                    <Label fx:id="lblYear" text="3.38%" />
+                                </HBox>
+                            </VBox>
+                            <VBox spacing="15">
+                                <HBox spacing="10">
+                                    <Label text="近3月:" />
+                                    <Label fx:id="lblMonth3" text="3.38%" />
+                                </HBox>
+                                <HBox spacing="10">
+                                    <Label text="近2年:" />
+                                    <Label fx:id="lblYear2" text="3.38%" />
+                                </HBox>
+                            </VBox>
+                            <VBox spacing="15">
+                                <HBox spacing="10">
+                                    <Label text="近6月:" />
+                                    <Label fx:id="lblMonth6" text="3.38%" />
+                                </HBox>
+                                <HBox spacing="10">
+                                    <Label text="近3年:" />
+                                    <Label fx:id="lblYear3" text="3.38%" />
+                                </HBox>
+                            </VBox>
+                        </HBox>
+                        <Separator orientation="HORIZONTAL">
+                            <VBox.margin>
+                                <Insets bottom="15.0" top="15.0" />
                             </VBox.margin>
                         </Separator>
                         <HBox spacing="50">
                             <VBox spacing="5">
                                 <HBox spacing="10">
-                                    <Label text="基金规模:"/>
-                                    <Label fx:id="lblasset" text="3.38%"/>
+                                    <Label text="基金规模:" />
+                                    <Label fx:id="lblasset" text="3.38%" />
                                 </HBox>
                                 <HBox spacing="10">
-                                    <Label text="基金份额:"/>
-                                    <Label fx:id="lblshare" text="3.38%"/>
-                                </HBox>
-                            </VBox>
-                            <VBox spacing="5">
-                                <HBox spacing="10">
-                                    <Label text="发行时间:"/>
-                                    <Label fx:id="lblissue" text="3.38%"/>
-                                </HBox>
-                                <HBox spacing="10">
-                                    <Label text="成立时间:"/>
-                                    <Label fx:id="lblsetup" text="3.38%"/>
+                                    <Label text="基金份额:" />
+                                    <Label fx:id="lblshare" text="3.38%" />
                                 </HBox>
                             </VBox>
                             <VBox spacing="5">
                                 <HBox spacing="10">
-                                    <Label text="基金公司:"/>
-                                    <Label fx:id="lblcompany" text="3.38%"/>
+                                    <Label text="发行时间:" />
+                                    <Label fx:id="lblissue" text="3.38%" />
+                                </HBox>
+                                <HBox spacing="10">
+                                    <Label text="成立时间:" />
+                                    <Label fx:id="lblsetup" text="3.38%" />
+                                </HBox>
+                            </VBox>
+                            <VBox spacing="5">
+                                <HBox spacing="10">
+                                    <Label text="基金公司:" />
+                                    <Label fx:id="lblcompany" text="3.38%" />
                                 </HBox>
                             </VBox>
                         </HBox>
@@ -179,24 +176,24 @@
             </VBox>
             <Separator orientation="HORIZONTAL">
                 <padding>
-                    <Insets top="10.0" bottom="10.0"/>
+                    <Insets bottom="10.0" top="10.0" />
                 </padding>
             </Separator>
             <!-- content -->
             <VBox VBox.vgrow="ALWAYS">
                 <HBox VBox.vgrow="ALWAYS">
-                    <WebView fx:id="unitWebView" HBox.hgrow="ALWAYS"/>
+                    <WebView fx:id="unitWebView" HBox.hgrow="ALWAYS" />
                     <Separator orientation="VERTICAL">
                         <padding>
-                            <Insets left="10.0" right="10.0"/>
+                            <Insets left="10.0" right="10.0" />
                         </padding>
                     </Separator>
                     <JFXTreeTableView fx:id="jfxtbv1" prefWidth="350">
                         <columns>
-                            <JFXTreeTableColumn fx:id="jfxtc11" text="股票名称"/>
-                            <JFXTreeTableColumn fx:id="jfxtc12" text="股票编码"/>
-                            <JFXTreeTableColumn fx:id="jfxtc13" text="占净资产比"/>
-                            <JFXTreeTableColumn fx:id="jfxtc14" text="市值/万元"/>
+                            <JFXTreeTableColumn fx:id="jfxtc11" text="股票名称" />
+                            <JFXTreeTableColumn fx:id="jfxtc12" text="股票编码" />
+                            <JFXTreeTableColumn fx:id="jfxtc13" text="占净资产比" />
+                            <JFXTreeTableColumn fx:id="jfxtc14" text="市值/万元" />
                         </columns>
                     </JFXTreeTableView>
                 </HBox>

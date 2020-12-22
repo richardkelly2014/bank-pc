@@ -1,0 +1,44 @@
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.control.Tooltip?>
+<?import com.jfoenix.controls.JFXRippler?>
+<BorderPane fx:id="mainPane"
+            xmlns="http://javafx.com/javafx/8.0.112"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <top>
+        <JFXToolbar style="-fx-pref-height: 50px;">
+            <leftItems>
+                <JFXRippler maskType="CIRCLE" style="-fx-ripple-color:WHITE;">
+                    <JFXButton fx:id="btnStockRank" contentDisplay="GRAPHIC_ONLY">
+                        <tooltip>
+                            <Tooltip text="股票排行"/>
+                        </tooltip>
+                        <graphic>
+                            <FontIcon iconLiteral="far-chart-bar" iconSize="25" iconColor="white"/>
+                        </graphic>
+                    </JFXButton>
+                </JFXRippler>
+
+                <JFXRippler maskType="CIRCLE" style="-fx-ripple-color:WHITE;">
+                    <JFXButton fx:id="btnStockMonitor" contentDisplay="GRAPHIC_ONLY">
+                        <tooltip>
+                            <Tooltip text="股票监控"/>
+                        </tooltip>
+                        <graphic>
+                            <FontIcon iconLiteral="fas-chart-line" iconSize="25" iconColor="white"/>
+                        </graphic>
+                    </JFXButton>
+                </JFXRippler>
+
+            </leftItems>
+        </JFXToolbar>
+    </top>
+
+    <center>
+
+    </center>
+</BorderPane>
