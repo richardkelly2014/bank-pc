@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 /**
  * Created by jiangfei on 2020/12/20.
  */
-@FXMLViewAndController(value = "template/AppView.fxml", title = "钱包")
+@FXMLViewAndController(value = "template/AppView.fxml", title = "家庭知识库")
 @Component
 public class AppController extends AbstractFxView {
 
