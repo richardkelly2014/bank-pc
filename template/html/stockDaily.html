@@ -68,7 +68,7 @@
                 legend: {
                     bottom: 10,
                     left: 'center',
-                    data: ['Dow-Jones index', 'MA5', 'MA10', 'MA20', 'MA30']
+                    data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -202,7 +202,7 @@
                 ],
                 series: [
                     {
-                        name: 'Dow-Jones index',
+                        name: '日K',
                         type: 'candlestick',
                         data: data.values,
                         itemStyle: {
@@ -261,7 +261,7 @@
                         }
                     },
                     {
-                        name: 'Volume',
+                        name: '成交量',
                         type: 'bar',
                         xAxisIndex: 1,
                         yAxisIndex: 1,
