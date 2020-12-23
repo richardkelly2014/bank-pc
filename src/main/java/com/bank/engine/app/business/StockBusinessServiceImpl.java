@@ -1,6 +1,7 @@
 package com.bank.engine.app.business;
 
 import com.bank.engine.app.config.HttpClient;
+import com.bank.engine.app.model.page.StockDailyResultModel;
 import com.bank.engine.app.model.page.StockRankPageModel;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,15 @@ public class StockBusinessServiceImpl implements StockBusinessService {
         }
 
         return pageModel;
+    }
+
+    @Override
+    public StockDailyResultModel queryStockDaily(String stockCode, int pageNo, int pageSize) {
+        String url = baseUrl + "/v1/daily?dimCode=" + stockCode + "&pageNo=" + pageNo + "&pageSize=" + pageSize;
+        StockDailyResultModel resultModel = httpClient.get(url, StockDailyResultModel.class);
+        if (resultModel == null) {
+            resultModel = new StockDailyResultModel();
+        }
+        return resultModel;
     }
 }

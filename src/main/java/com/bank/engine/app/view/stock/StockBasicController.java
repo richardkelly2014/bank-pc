@@ -6,6 +6,7 @@ import com.bank.engine.app.config.FXMLViewAndController;
 import com.bank.engine.app.model.StockRankModel;
 import com.bank.engine.app.model.page.StockRankPageModel;
 import com.bank.engine.app.util.DefaultThreadFactory;
+import com.bank.engine.app.view.UiComponent;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
@@ -36,6 +37,8 @@ public class StockBasicController extends AbstractFxView implements Initializing
 
     @Autowired
     private StockBusinessService stockBusinessService;
+    @Autowired
+    private UiComponent uiComponent;
 
     @FXML
     private JFXTreeTableView<StockRankModel> recordTable;
@@ -98,7 +101,7 @@ public class StockBasicController extends AbstractFxView implements Initializing
 
                         JFXButton info = createIconButton(FontAwesomeSolid.INFO, 15, Color.GREEN);
                         JFXButton daily = createIconButton(FontAwesomeSolid.CHART_LINE, 15, Color.GREEN);
-
+                        daily.setOnAction(action -> showStockDaily(getTreeTableView().getTreeItem(getIndex()).getValue()));
                         hBox.getChildren().addAll(info, daily);
                         setGraphic(hBox);
                     }
@@ -179,6 +182,13 @@ public class StockBasicController extends AbstractFxView implements Initializing
             totalPage.setText(String.valueOf(page));
             totalLabel.setText(String.valueOf(totalCount));
         });
+    }
+
+    private void showStockDaily(StockRankModel stockRankModel) {
+        String code = stockRankModel.getStockCode();
+        String name = stockRankModel.getStockName();
+
+        uiComponent.showStockDaily(code, name);
     }
 
     @Override
