@@ -89,8 +89,8 @@ public abstract class AbstractFxApplication extends Application {
         decorator.setCustomMaximize(true);
         decorator.setGraphic(new SVGGlyph(""));
 
-        double[] screenSize = getScreenSizeByScale(0.9, 0.9);
-        Scene scene = new Scene(decorator, screenSize[0], screenSize[1]);
+        //double[] screenSize = getScreenSizeByScale(0.9, 0.9);
+        Scene scene = new Scene(decorator, 800, 600);
         scene.getStylesheets().addAll(
                 JFoenixResources.load("css/jfoenix-fonts.css").toExternalForm(),
                 JFoenixResources.load("css/jfoenix-design.css").toExternalForm(),

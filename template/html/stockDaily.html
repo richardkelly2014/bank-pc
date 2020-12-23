@@ -58,6 +58,7 @@
     }
 
     var jsConnector = {
+        apps: '',
         showResult: function (benkData) {
             var jsonData =  JSON.parse(benkData);
             var data = splitData(jsonData);
@@ -272,6 +273,10 @@
         }
     };
 
+    myChart.on('click', function (params) {
+        var day = params.name;
+        jsConnector.apps.showDay(day);
+    });
 
     function getJsConnector() {
         return jsConnector;

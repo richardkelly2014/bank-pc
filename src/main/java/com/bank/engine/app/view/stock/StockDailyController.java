@@ -58,6 +58,8 @@ public class StockDailyController extends AbstractFxView {
             if (newValue == Worker.State.SUCCEEDED) {
                 // 获取Javascript连接器对象。
                 javascriptConnector = (JSObject) webEngine.executeScript("getJsConnector()");
+                javascriptConnector.setMember("apps", this);
+
                 DefaultThreadFactory.runLater(this::showEchart);
             }
         });
@@ -101,8 +103,18 @@ public class StockDailyController extends AbstractFxView {
         Platform.runLater(() -> javascriptConnector.call("showResult", JSON.toJSONString(result)));
     }
 
+    public void showDay(String day) {
+
+        log.info("{}", day);
+    }
+
     private double priceRate(int rate) {
         double v = NumberUtil.div(rate, 100, 2);
         return v;
+    }
+
+    @Override
+    public String getDefaultTitle() {
+        return super.getDefaultTitle() + "---(" + stockName + ":" + stockCode + ")";
     }
 }
