@@ -1,0 +1,127 @@
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.layout.HBox?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import java.lang.Integer?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXTreeTableColumn?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import javafx.scene.layout.FlowPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<BorderPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.121"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <top>
+        <VBox>
+            <HBox spacing="15">
+                <padding>
+                    <Insets bottom="5" left="20" right="20" top="5"/>
+                </padding>
+
+                <FlowPane orientation="HORIZONTAL" prefWrapLength="NaN">
+                    <Label text="股票代码:"/>
+                    <JFXTextField fx:id="tf_stockCode" style="-fx-pref-width: 100px">
+                        <FlowPane.margin>
+                            <Insets left="5.0"/>
+                        </FlowPane.margin>
+                    </JFXTextField>
+                </FlowPane>
+
+                <FlowPane orientation="HORIZONTAL" prefWrapLength="NaN">
+                    <Label text="股票名称:"/>
+                    <JFXTextField fx:id="tf_stockName" style="-fx-pref-width: 100px">
+                        <FlowPane.margin>
+                            <Insets left="5.0"/>
+                        </FlowPane.margin>
+                    </JFXTextField>
+                </FlowPane>
+
+                <JFXButton fx:id="btnSearch" buttonType="RAISED"
+                           style="-fx-text-fill:WHITE;-fx-background-color:#22ae79;-fx-font-size:14px;" text="搜 索"/>
+
+                <JFXButton fx:id="btnRest" buttonType="RAISED"
+                           style="-fx-text-fill:WHITE;-fx-background-color:#22ae79;-fx-font-size:14px;" text="重 置"/>
+
+
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <StackPane>
+            <children>
+                <VBox>
+                    <children>
+                        <JFXTreeTableView fx:id="recordTable"  maxWidth="Infinity" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <JFXTreeTableColumn sortable="false" minWidth="100" fx:id="treeTableColumnPlate" text="市场"/>
+                                <JFXTreeTableColumn sortable="false" minWidth="220" fx:id="treeTableColumnName" text="名称"/>
+                                <JFXTreeTableColumn sortable="false" minWidth="100" fx:id="treeTableColumnCode" text="代码"/>
+
+                                <JFXTreeTableColumn sortable="false" minWidth="100" fx:id="treeTableColumnDay" text="日期"/>
+
+                                <JFXTreeTableColumn sortType="ASCENDING" minWidth="100" fx:id="treeTableColumnDayRate" text="日增长"/>
+                                <JFXTreeTableColumn sortType="ASCENDING" minWidth="100" fx:id="treeTableColumnThreeDayRate" text="近三日"/>
+
+                                <JFXTreeTableColumn sortType="ASCENDING" minWidth="100" fx:id="treeTableColumnWeek" text="近一周"/>
+                                <JFXTreeTableColumn sortType="ASCENDING" minWidth="100" fx:id="treeTableColumnMonth" text="近一月"/>
+
+                                <JFXTreeTableColumn sortable="false" fx:id="columnOperation" maxWidth="Infinity" minWidth="200"
+                                                    text="操作"/>
+
+                            </columns>
+                        </JFXTreeTableView>
+                        <HBox>
+                            <HBox>
+                            </HBox>
+                            <HBox alignment="CENTER_RIGHT" spacing="10" HBox.hgrow="ALWAYS">
+                                <padding>
+                                    <Insets top="5" left="20" right="20" bottom="5"/>
+                                </padding>
+                                <children>
+                                    <Label text="总条数:"/>
+                                    <Label fx:id="totalLabel" style="-fx-text-fill: rgba(37,101,252,0.75);" text="1"/>
+                                    <JFXComboBox fx:id="pageSize">
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <Integer fx:value="100"/>
+                                                <Integer fx:value="200"/>
+                                            </FXCollections>
+                                        </items>
+                                        <value>
+                                            <Integer fx:value="100"/>
+                                        </value>
+                                    </JFXComboBox>
+
+                                    <JFXButton fx:id="btnPrev" buttonType="RAISED"
+                                               style="-fx-background-color:WHITE;" text="上一页"/>
+
+                                    <Label fx:id="pageNo" text="1"/>
+
+                                    <Label text="/"/>
+
+                                    <Label fx:id="totalPage" text="1"/>
+
+                                    <Label text="页"/>
+
+                                    <JFXButton fx:id="btnNext" buttonType="RAISED"
+                                               style="-fx-background-color:WHITE;" text="下一页"/>
+
+                                </children>
+                            </HBox>
+                        </HBox>
+                    </children>
+                </VBox>
+
+                <JFXSpinner fx:id="spinnerInfo"
+                            styleClass="green-spinner" visible="false" StackPane.alignment="CENTER"
+                            startingAngle="0" radius="13"/>
+            </children>
+        </StackPane>
+    </center>
+</BorderPane>

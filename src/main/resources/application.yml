@@ -1,3 +1,4 @@
 bank:
   fund: http://140.143.39.99:6227/fund
+  stock: http://140.143.39.99:6227/stock
   #fund: http://localhost:8080/fund
