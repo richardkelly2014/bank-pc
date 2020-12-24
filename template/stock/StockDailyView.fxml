@@ -1,12 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
-<BorderPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.121"
-            xmlns:fx="http://javafx.com/fxml/1">
+
+<?import javafx.geometry.Insets?>
+<BorderPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
 
     <center>
         <StackPane>
-            <WebView fx:id="dailyView" />
+            <VBox>
+                <HBox>
+                    <VBox style="-fx-pref-width: 200px;" spacing="10">
+                        <padding>
+                            <Insets left="10" top="10"/>
+                        </padding>
+                        <HBox spacing="10">
+                            <Label text="日     期："/>
+                            <Label fx:id="lblDay" text=""/>
+                        </HBox>
+
+                        <HBox spacing="10">
+                            <Label text="开     盘："/>
+                            <Label fx:id="lblOpen" text=""/>
+                        </HBox>
+
+                        <HBox spacing="10">
+                            <Label text="最     高："/>
+                            <Label fx:id="lblHigh" text=""/>
+                        </HBox>
+
+                        <HBox spacing="10">
+                            <Label text="最     低："/>
+                            <Label fx:id="lblLow" text=""/>
+                        </HBox>
+
+                        <HBox spacing="10">
+                            <Label text="收     盘："/>
+                            <Label fx:id="lblClose" text=""/>
+                        </HBox>
+
+                        <HBox spacing="10">
+                            <Label text="涨     跌："/>
+                            <Label fx:id="lblChange" text=""/>
+                        </HBox>
+
+                        <HBox spacing="10">
+                            <Label text="涨跌幅："/>
+                            <Label fx:id="lblPctChange" text=""/>
+                        </HBox>
+
+                        <HBox spacing="10">
+                            <Label text="成交量："/>
+                            <Label fx:id="lblVol" text=""/>
+                        </HBox>
+
+                        <HBox spacing="10">
+                            <Label text="成交额："/>
+                            <Label fx:id="lblAmount" text=""/>
+                        </HBox>
+
+                        <HBox spacing="10">
+                            <Label text="振     幅："/>
+                            <Label fx:id="lblAmplitude" text=""/>
+                        </HBox>
+
+                        <HBox spacing="10">
+                            <Label text="换手率："/>
+                            <Label fx:id="lblTurnoverRate" text=""/>
+                        </HBox>
+
+                    </VBox>
+
+                    <WebView fx:id="dailyView" HBox.hgrow="ALWAYS"/>
+
+                    <VBox>
+                    </VBox>
+                </HBox>
+            </VBox>
         </StackPane>
     </center>
 

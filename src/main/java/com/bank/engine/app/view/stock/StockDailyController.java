@@ -14,6 +14,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Slf4j
 @FXMLViewAndController(value = "template/stock/StockDailyView.fxml", title = "股票K线")
@@ -34,8 +37,14 @@ public class StockDailyController extends AbstractFxView {
     private String stockCode;
     private String stockName;
 
+    private ConcurrentHashMap<String, StockDailyModel> dailyMap = new ConcurrentHashMap<>();
+
     @FXML
     private WebView dailyView;
+    @FXML
+    private Label lblDay, lblOpen, lblHigh, lblLow, lblClose, lblChange, lblPctChange;
+    @FXML
+    private Label lblVol, lblAmount, lblAmplitude, lblTurnoverRate;
 
     /**
      * 用于与Javascript引擎通信。
@@ -76,6 +85,8 @@ public class StockDailyController extends AbstractFxView {
         StockDailyResultModel resultModel = stockBusinessService.queryStockDaily(code, 1, 300);
         List<StockDailyModel> list = resultModel.getData();
 
+        dailyMap.putAll(list.stream().collect(Collectors.toMap(StockDailyModel::getDay, p -> p)));
+
         Collections.reverse(list);
 
         List<List<Object>> result = Lists.newArrayList();
@@ -104,8 +115,36 @@ public class StockDailyController extends AbstractFxView {
     }
 
     public void showDay(String day) {
+        StockDailyModel model = dailyMap.get(day);
 
-        log.info("{}", day);
+        Integer open = model.getOpen();
+        Integer close = model.getClose();
+        Integer low = model.getLow();
+        Integer high = model.getHigh();
+
+        Integer change = model.getChange();
+        String pctChange = model.getPctChange();
+
+        Integer vol = model.getVol();
+        Integer amount = model.getAmount();
+        String amplitude = model.getAmplitude();
+        String turnoverRate = model.getTurnoverRate();
+
+        lblDay.setText(day);
+        lblOpen.setText(String.valueOf(priceRate(open)));
+        lblClose.setText(String.valueOf(priceRate(close)));
+        lblLow.setText(String.valueOf(priceRate(low)));
+        lblHigh.setText(String.valueOf(priceRate(high)));
+        lblChange.setText(String.valueOf(priceRate(change)));
+
+        lblPctChange.setText(pctChange + "%");
+
+        lblVol.setText(String.valueOf(vol) + " (手)");
+        lblAmount.setText(String.valueOf(amount) + " (万元)");
+
+        lblAmplitude.setText(amplitude + "%");
+        lblTurnoverRate.setText(turnoverRate + "%");
+
     }
 
     private double priceRate(int rate) {
